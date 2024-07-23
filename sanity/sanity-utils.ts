@@ -7,6 +7,7 @@ export const client = createClient({
     apiVersion: "2024-07-19",
 });
 
+/* TEST QUERY */
 export async function getData(){ 
    
     return client.fetch(
@@ -19,4 +20,16 @@ export async function getData(){
            "imageAlt": image.alt,
         }`
     );    
+}
+
+/* HERO QUERY */
+export async function getHero(){
+
+    return client.fetch(
+        groq`*[_type == "heroSection"]{  
+        title, 
+        "DesktopImg": backgroundImage.asset->url,        
+        "alt": backgroundImage.alt,       
+        }`
+    );
 }
