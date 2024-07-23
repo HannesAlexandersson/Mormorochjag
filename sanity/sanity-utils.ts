@@ -1,20 +1,22 @@
-import { createClient, groq } from "next-sanity";
+import { groq, createClient } from "next-sanity";
 
-export async function getPottery(){
 
-    const client = createClient({
-        projectId: "i8zm0npp",
-        dataset: "production",        
-        apiVersion: "2024-07-19",
-    });
-    
+export const client = createClient({
+    projectId: "i8zm0npp",
+    dataset: "production",        
+    apiVersion: "2024-07-19",
+});
+
+export async function getData(){ 
+   
     return client.fetch(
         groq`*[_type == "keramik"]{
-        _id,
-        _createdAt,
-        name,
-        "slug": slug.current,
-        "image": image.asset->url,        
+            _id,
+            title,
+            description,
+            "slug": slug.current,
+            "image": image.asset->url,
+           "imageAlt": image.alt,
         }`
     );    
 }

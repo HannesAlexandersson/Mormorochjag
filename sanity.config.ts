@@ -4,7 +4,7 @@ import {visionTool} from '@sanity/vision';
 import schemas from "./sanity/schemas";
 
 
-const config = defineConfig({
+export const config = defineConfig({
     projectId: "i8zm0npp",
     dataset: "production",
     title: "Annika's studio",
@@ -14,4 +14,3 @@ const config = defineConfig({
     basePath: "/studio",
 });
 
-export default config;
