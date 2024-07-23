@@ -15,6 +15,10 @@ const textil = {
             title: 'Slug',
             type: 'slug',
             description: 'Slug autogenereras från titeln',
+            options: {
+                source: 'title',
+                maxLength: 96
+            }
         },
         {
             name: 'description',
