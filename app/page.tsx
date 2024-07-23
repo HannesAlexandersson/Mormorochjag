@@ -1,32 +1,32 @@
 import Image from "next/image";
-import { getData } from "@/sanity/sanity-utils";
+import { getData, getHero } from "@/sanity/sanity-utils";
+import Hero from "./components/Hero/Hero";
 
-interface Pottery {
-  _id: string;
+
+
+export interface HeroData {
   title: string;
-  image: string;
-  imageAlt: string;
-  description: string;
+  DesktopImg: string;
+  alt: string;  
+}
+
+export interface HeroProps {
+  hero: HeroData;
 }
 
 
-export default async function Home() {
- 
-  const data = await getData();
+export default async function Home() { 
+
+  const heroData = await getHero();
   
   return (
     <>
-      <h1>Mormor och Jag</h1>
+      <main>
+        {heroData ? (
+          <Hero hero={heroData[0]} />
 
-     <ul>
-        {data.map((pottery:Pottery) => (
-          <li key={pottery._id}>
-            <h2>{pottery.title}</h2>
-            <Image src={pottery.image} alt={pottery.imageAlt} width={200} height={200} />
-            <p>{pottery.description}</p>
-          </li>
-        ))}
-      </ul>
+        ) : (<h1>Loading...</h1>)}        
+      </main>     
     </>
   );
 }
