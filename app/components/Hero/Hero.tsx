@@ -11,9 +11,10 @@ export interface HeroData {
   
   export interface HeroProps {
     hero: HeroData;
+    isLanding?: boolean;
   }
 
-const Hero: React.FC<HeroProps> = ({ hero }) => { 
+const Hero: React.FC<HeroProps> = ({ hero, isLanding }) => { 
   
     return (
       <section className='relative h-screen bg-black/30 object-cover'>
@@ -34,12 +35,14 @@ const Hero: React.FC<HeroProps> = ({ hero }) => {
             <div className='flex flex-col items-center gap-2 md:gap-4'>
               <h1 className='text-4xl sm:text-5xl lg:text-8xl'>{hero.title}</h1>
             </div>
+            {isLanding && (
             <Button
             className='w-full sm:w-fit'
             variant='outlined-secondary'
             >
                 <Link href='#'>Besök galleriet</Link>
             </Button>
+            )}
           </div>
         </div>
       </section>
