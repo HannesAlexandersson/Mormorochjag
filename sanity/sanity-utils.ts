@@ -25,10 +25,11 @@ export async function getData(){
 export async function getNavbarLogo(){ 
    
     return client.fetch(
-        groq`*[_type == "navbarLogo"]{            
+        groq`*[_type == "navbarLogo"]{  
+            title, 
             "logo": logo.asset->url,
-           "alt": logo.alt,
-        }`
+                "alt": logo.alt                
+            }`
     );    
 }
 

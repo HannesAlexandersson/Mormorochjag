@@ -14,6 +14,7 @@ interface NavbarProps {
 
 const Navbar = async () => {
     const logo = await getNavbarLogo();
+   
   return (
     <div>
       <NavbarClient logo={logo[0]} />
