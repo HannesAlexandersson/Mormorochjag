@@ -44,3 +44,26 @@ export async function getHero(){
         }`
     );
 }
+
+export async function getLandingPage(){
+    return client.fetch(
+        groq`*[_type == "landingPageTextsections"]{  
+            title, 
+            paragraph,
+            position,
+            "image": image.asset->url,       
+        }`
+    );
+    
+}
+
+export async function getTrippleImage(){
+
+    return client.fetch(
+        groq`*[_type == "trippleImage"]{            
+            "Image1": image1.asset->url,
+            "Image2": image1.asset->url,
+            "Image3": image1.asset->url,
+        }`
+    );
+}
