@@ -43,9 +43,9 @@ const Navbar:React.FC<NavbarProps> = ({logo}) => {
           <Button
             onClick={handleToggle}
             className={cn(
-              'fixed right-6 top-10 z-50 flex h-10 w-10 -translate-y-1/2 flex-col items-center justify-center gap-1 p-0 transition-opacity duration-300 hover:bg-black xl:right-16'
+              'fixed right-6 top-10 z-99 flex h-10 w-10 -translate-y-1/2 flex-col items-center justify-center gap-1 p-0 transition-opacity duration-300 hover:bg-grey xl:right-16 bg-annika-pink text-annika-blue hover:bg-annika-cream'
             )}
-            variant={'primary'}
+            variant={'empty'}
             aria-label='Open navigation menu'
           >
             <div className={cn('hamburger-line', { 'line-1': showMenu })} />
@@ -54,14 +54,8 @@ const Navbar:React.FC<NavbarProps> = ({logo}) => {
           </Button>
         </div>
         {showMenu && (
-        <div className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-black bg-opacity-50 p-4">
-          <Button
-            onClick={handleToggle}
-            className="absolute top-6 right-6 text-white"
-            aria-label="Close navigation menu"
-          >
-            X
-          </Button>
+        <div className="fixed inset-0 z-20 flex flex-col items-center justify-center bg-black bg-opacity-50 p-4">
+         
           {pageLinks.map((link, index) => (
           <div
             key={link.path}

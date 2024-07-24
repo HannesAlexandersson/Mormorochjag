@@ -7,12 +7,13 @@ const buttonVariants = cva(
     {
       variants: {
         variant: {
-          primary: 'bg-black text-white hover:bg-zinc-900',
-          secondary: 'bg-white text-black hover:bg-zinc-50',
+          'primary': 'bg-black text-white hover:bg-zinc-900',
+          'secondary': 'bg-white text-black hover:bg-zinc-50',
           'outlined-primary':
             'bg-transparent border-2 border-black text-black hover:bg-black hover:text-white',
           'outlined-secondary':
             'bg-transparent border-2 border-white text-white hover:bg-white hover:text-black',
+            'empty': '',
         },
         size: {
           sm: 'px-4 py-2 text-sm font-medium',
