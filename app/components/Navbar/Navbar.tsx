@@ -1,10 +1,24 @@
-import Image from "next/image"
+import NavbarClient from './NavbarClient';
+import { getNavbarLogo } from "@/sanity/sanity-utils";
 
-const Navbar = () => {
+interface NavbarProps {
+    logo: {
+      logo: string
+      alt: string
+    }
+  }
 
-    return (
-        <div>
-            <h1>Navbar</h1>
-        </div>
-    )
-}
+  interface NavProps {
+    hero: NavbarProps;
+  }
+
+const Navbar = async () => {
+    const logo = await getNavbarLogo();
+  return (
+    <div>
+      <NavbarClient logo={logo[0]} />
+    </div>
+  );
+};
+
+export default Navbar;
