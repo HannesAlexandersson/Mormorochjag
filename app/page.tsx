@@ -43,7 +43,7 @@ export default async function Home() {
     <> 
       <main>
         {heroData ? (
-          <Hero hero={heroData[0]} />
+          <Hero hero={heroData[0]} isLanding={true} />
 
         ) : (<h1>Loading...</h1>)}       
 
@@ -157,7 +157,7 @@ export default async function Home() {
               </div>
             </div>
           </div>
-          <div className="relative flex flex-col items-start justify-center ">
+          <div className="relative flex flex-col gap-4 items-start justify-center ">
             <Image 
               src={trippleImageData[2].image1} 
               alt={trippleImageData[2].alt1} 

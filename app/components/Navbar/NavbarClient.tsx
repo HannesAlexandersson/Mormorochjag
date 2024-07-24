@@ -67,7 +67,7 @@ const Navbar:React.FC<NavbarProps> = ({logo}) => {
             <Link href={link.path}>
               <p
                 onClick={() => handleToggle}
-                className={'py-2 text-end text-xl font-medium uppercase'}                           
+                className={'py-2 text-end text-xl font-medium uppercase text-annika-pink hover:text-annika-blue'}                           
               >
                 {link.title}
               </p>

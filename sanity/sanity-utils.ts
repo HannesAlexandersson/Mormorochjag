@@ -70,3 +70,27 @@ export async function getTrippleImage(){
         }`
     );
 }
+
+export async function getContactPage(){
+
+    return client.fetch(
+        groq`*[_type == "contactPage"]{
+        title,
+        description,
+        position,
+        "imageUrl": *[_type == "contactPageImages" && references(^._id)]{
+            "imageUrl": Image.asset->url
+        }[0].imageUrl
+        } | order(position asc)`
+    );
+}
+
+export async function getSocial(){
+    return client.fetch(
+        groq`*[_type == "social"]{  
+            title, 
+            "icon": icon.asset->url,
+            "alt": icon.alt,       
+        }`
+    );
+}
