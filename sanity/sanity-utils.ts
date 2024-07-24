@@ -94,3 +94,13 @@ export async function getSocial(){
         }`
     );
 }
+
+export async function getFooter(){
+    return client.fetch(
+        groq`*[_type == "logo" && _id == "2a447dc6-9bd1-48cf-9054-4ace9091233e"]{
+            title,
+            "logo": logo.asset->url,
+            "altText": logo.alt
+            }`
+    );
+}
