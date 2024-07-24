@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Rowdies } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
 
 const rowdies = Rowdies({ subsets: ["latin"], weight: ["300", "400", "700"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className={rowdies.className}>
         <Navbar />
         {children}
+        <Footer />
       </body>
       
     </html>

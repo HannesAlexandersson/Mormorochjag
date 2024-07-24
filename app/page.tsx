@@ -157,23 +157,26 @@ export default async function Home() {
               </div>
             </div>
           </div>
-          <div className="relative flex flex-col gap-4 items-start justify-center ">
-            <Image 
-              src={trippleImageData[2].image1} 
-              alt={trippleImageData[2].alt1} 
-              width={300}
-              height={500}
-              objectFit='cover'      
-                     
-            />
-             <Image 
-              src={trippleImageData[2].image2} 
-              alt={trippleImageData[2].alt2} 
-              width={300}
-              height={500}
-              objectFit='cover'      
-                     
-            />
+          <div className="relative flex flex-col gap-4 items-start justify-center p-6 md:p-16">
+          <div className="flex-1 justify-center">
+              <Image 
+                src={trippleImageData[2].image1} 
+                alt={trippleImageData[2].alt1} 
+                width={300}
+                height={500}
+                objectFit='cover'                            
+              />
+            </div>
+            <div className="flex-1 justify-center">
+              <Image 
+                src={trippleImageData[2].image2} 
+                alt={trippleImageData[2].alt2} 
+                width={300}
+                height={500}
+                objectFit='cover'      
+                      
+              />
+            </div>
           </div>
         </section>
       </main>     
