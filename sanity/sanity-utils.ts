@@ -61,9 +61,12 @@ export async function getTrippleImage(){
 
     return client.fetch(
         groq`*[_type == "trippleImage"]{            
-            "Image1": image1.asset->url,
-            "Image2": image1.asset->url,
-            "Image3": image1.asset->url,
+            "image1": image1.asset->url,
+              "alt1": image1.alt,
+            "image2": image2.asset->url,
+              "alt2": image2.alt,
+            "image3": image3.asset->url,
+              "alt3": image3.alt,
         }`
     );
 }
