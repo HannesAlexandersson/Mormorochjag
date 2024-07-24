@@ -21,6 +21,17 @@ export async function getData(){
         }`
     );    
 }
+/* NAVBAR QUERY */
+export async function getNavbarLogo(){ 
+   
+    return client.fetch(
+        groq`*[_type == "navbarLogo"]{  
+            title, 
+            "logo": logo.asset->url,
+                "alt": logo.alt                
+            }`
+    );    
+}
 
 /* HERO QUERY */
 export async function getHero(){

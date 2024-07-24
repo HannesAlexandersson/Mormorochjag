@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Rowdies } from "next/font/google";
 import "./globals.css";
+import Navbar from "./components/Navbar/Navbar";
 
 const rowdies = Rowdies({ subsets: ["latin"], weight: ["300", "400", "700"] });
 
@@ -16,7 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={rowdies.className}>{children}</body>
+      <body className={rowdies.className}>
+        <Navbar />
+        {children}
+      </body>
+      
     </html>
   );
 }
