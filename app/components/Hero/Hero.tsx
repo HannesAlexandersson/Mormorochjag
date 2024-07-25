@@ -21,7 +21,7 @@ const Hero: React.FC<HeroProps> = ({ hero, isLanding }) => {
         <Image
           className='absolute -z-10'
           src={hero.DesktopImg}
-          alt={hero.alt}          
+          alt={hero.alt || 'Hero image'}          
           quality={100}
           fill
           sizes="100vw"
