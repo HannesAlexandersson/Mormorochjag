@@ -1,10 +1,21 @@
 import type { Metadata } from "next";
-import { Rowdies } from "next/font/google";
+import { VisualEditing } from "next-sanity";
+import { draftMode } from "next/headers";
+import { Rowdies, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 
-const rowdies = Rowdies({ subsets: ["latin"], weight: ["300", "400", "700"] });
+const rowdies = Rowdies({ 
+  variable: "--font-rowdies",
+  subsets: ["latin"], weight: ["300", "400", "700"] });
+
+const sans = Inter({
+  variable: '--font-sans',
+  subsets: ['latin'],
+  // @todo: understand why extrabold (800) isn't being respected when explicitly specified in this weight array
+  // weight: ['500', '700', '800'],
+})
 
 export const metadata: Metadata = {
   title: "Mormor och jag",
@@ -17,11 +28,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en"
+      className={`${sans.variable} ${rowdies.variable}`}
+    >
       <body className={rowdies.className}>
+      {draftMode().isEnabled && (
+          <a
+            className="fixed right-0 bottom-0 bg-blue-500 text-white p-4 m-4"
+            href="/api/draft-mode-disable"
+          >
+            Disable preview mode
+          </a>
+        )}
         <Navbar />
         {children}
         <Footer />
+        {draftMode().isEnabled && <VisualEditing />}
       </body>
       
     </html>

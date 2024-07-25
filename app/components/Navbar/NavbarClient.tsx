@@ -11,7 +11,7 @@ import pageLinks from '@/lib/pageLinks'
 interface NavbarProps {
   logo: {
     logo: string
-    alt: string
+    alt?: string
   }
 }
 
@@ -34,7 +34,7 @@ const Navbar:React.FC<NavbarProps> = ({logo}) => {
           <Link href={'/'}>
             <Image 
               src={logo.logo}
-              alt={logo.alt}
+              alt={logo.alt || 'Mormor&jag Logo'}
               width={200 / 1.1}
               height={36 / 1.1}
               className='max-w-[130px] md:max-w-none'

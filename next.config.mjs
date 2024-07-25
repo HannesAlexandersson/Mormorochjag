@@ -8,7 +8,10 @@ const nextConfig = {
         pathname: '**',
       },
     ],
-    /* domains: ['cdn.sanity.io'], */ // Add any other domains if needed
+    
+  },
+  experimental: {
+    taint: true,
   },
 };
 

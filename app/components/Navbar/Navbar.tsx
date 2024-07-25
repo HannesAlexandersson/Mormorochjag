@@ -1,11 +1,11 @@
 import NavbarClient from './NavbarClient';
-import { getNavbarLogo } from "@/sanity/sanity-utils";
+import { sanityFetch } from "@/sanity/client";
+import { getNavbarLogo } from "@/sanity/querys";
 
-interface NavbarProps {
-    logo: {
-      logo: string
-      alt: string
-    }
+interface NavbarProps {    
+    logo: string
+    alt: string
+    
   }
 
   interface NavProps {
@@ -13,7 +13,7 @@ interface NavbarProps {
   }
 
 const Navbar = async () => {
-    const logo = await getNavbarLogo();
+    const logo = await sanityFetch<NavbarProps[]>({ query: getNavbarLogo});
    
   return (
     <div>

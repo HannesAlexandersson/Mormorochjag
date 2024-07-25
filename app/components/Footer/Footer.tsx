@@ -1,9 +1,15 @@
 import Image from "next/image";
-import { getFooter } from "@/sanity/sanity-utils";
+import { getFooter } from "@/sanity/querys";
+import { sanityFetch } from "@/sanity/client";
+
+interface FootProps {
+    logo: string;
+    altText: string;
+  }
 
 
 const Footer = async () => {
-    const footerData = await getFooter();
+    const footerData = await sanityFetch<FootProps[]>({ query: getFooter});
 
   return (
     <footer className="bg-annika-cream text-annika-blue flex flex-row py-6 px-2">
