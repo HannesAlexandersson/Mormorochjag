@@ -38,7 +38,7 @@ const Contact = async () => {
                     <div className="relative flex flex-1 items-start justify-center ">
                         <Image 
                         src={sortedContactData[0].imageUrl} 
-                        alt={sortedContactData[0].title} 
+                        alt={sortedContactData[0].title || 'alt text for image'} 
                         width={300}
                         height={500}                                                        
                         />
