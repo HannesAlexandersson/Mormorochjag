@@ -66,3 +66,40 @@ export const getNavbarLogo =
             "logo": logo.asset->url,
             "alt": logo.alt                
             }`;
+
+export const getBlogPosts = groq`*[_type == "blogPost"]{
+    title,
+    slug,
+    mainImage,
+    publishedAt,
+    excerpt,
+    "author": author->name,
+    "categories": categories[]->title
+  } | order(publishedAt desc)`;
+
+export const getBlogPageTextSections = groq`*[_type == "blogPageTextSections"]{
+    title,
+    text,
+    position
+  } | order(position asc)`;
+
+export const getGallery = groq`*[_type == "gallery"]{
+    title,
+    "images": images[] {
+      "image": image.asset->url,
+      "alt": image.alt,
+    }
+  }`;
+
+export const getGalleryTextSections = groq`*[_type == "galleryTextsections"]{
+    title,
+    text,
+    position
+  } | order(position asc)`;
+
+
+export const getStorePageTextSections = groq`*[_type == "storePageTextsections"]{  
+  title,
+ text,
+    position,
+} | order(position asc)`;
