@@ -35,6 +35,8 @@ const Contact = async () => {
                         </div>
                         </div>
                     </div>
+                    {sortedContactData[0].imageUrl && (
+
                     <div className="relative flex flex-1 items-start justify-center ">
                         <Image 
                         src={sortedContactData[0].imageUrl} 
@@ -43,10 +45,12 @@ const Contact = async () => {
                         height={500}                                                        
                         />
                     </div>
+
+                    ) }
                 </section>
 
                 <section className="section-contain flex flex-col md:flex-row w-full h-auto my-16 md:my-32">
-                    
+                     {sortedContactData[1].imageUrl && (
                     <div className="relative flex flex-1 items-start justify-center ">
                         <Image 
                         src={sortedContactData[1].imageUrl} 
@@ -55,6 +59,7 @@ const Contact = async () => {
                         height={500}                                                        
                         />
                     </div>
+                        ) }
                     
                     <div className="flex-1 flex items-start justify-center p-6 md:p-16">
                         <div>
