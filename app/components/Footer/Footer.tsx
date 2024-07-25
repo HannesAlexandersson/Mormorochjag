@@ -16,7 +16,7 @@ const Footer = async () => {
 
   return (
     <footer className="bg-annika-cream text-annika-blue flex flex-col py-6 px-2">
-      <div className="flex flex-col gap-5 md:gap-0 md:flex-row justify-between py-2">
+      <div className="flex flex-col gap-5 md:gap-0 md:flex-row justify-between pt-2 pb-10">
         <div className="flex-1 flex flex-col gap-4 items-center justify-start">
             <h3><strong>Meny:</strong></h3>
             {pageLinks.map((link) => (
@@ -47,7 +47,7 @@ const Footer = async () => {
         
       </div>
 
-      <div className="flex-1 flex flex-col gap-4 items-center justify-start">
+      <div className="flex-1 flex flex-col gap-4 items-center justify-start pt-6 border-annika-pink border-t-2">
           <div className="flex-1 flex flex-col gap-1 items-center justify-start w-auto h-auto">
               <Image 
               src={footerData[0].logo} 

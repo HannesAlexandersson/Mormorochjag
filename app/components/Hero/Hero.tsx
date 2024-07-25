@@ -31,7 +31,7 @@ const Hero: React.FC<HeroProps> = ({ hero, isLanding }) => {
           priority={true}
         />
         <div className='mx-auto flex h-full max-w-[1440px] items-end justify-center px-6 pb-24 sm:items-center sm:pb-0 sm:pt-24'>
-          <div className='flex flex-col items-center gap-12 text-center text-white'>
+          <div className='flex flex-col items-center gap-12 text-center text-annika-pink'>
             <div className='flex flex-col items-center gap-2 md:gap-4'>
               <h1 className='text-4xl sm:text-5xl lg:text-8xl'>{hero.title}</h1>
             </div>

@@ -12,6 +12,8 @@ module.exports = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+          "keramik": "url('/pottery.png')",
+          "textil": "url('/yarn.jpg')",
       },
       width: {
         'line-width': `${(2 * 3 + 4 * 2) * 1.4142135623731}px`,

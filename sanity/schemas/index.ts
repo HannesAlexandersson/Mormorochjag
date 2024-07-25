@@ -14,8 +14,29 @@ import BlogPost from "./blogPost-schema";
 import gallery from "./gallery-schema";
 import galleryTextsectionsSchema from "./galleryTextsections-schema";
 import BlogpageTextsections from "./blogPagetextsections-schema";
+import storePageTextsectionsSchema from "./storePageTextsections-schema";
+import authorSchema from "./author-schema";
 
 
-const schemas = [keramik, keramikCategory, textilCategory, textil, landingPage, heroSection, logo, trippleImage, navbarLogo, contactInfoSchema, contactPage, contactPageImages, BlogPost, gallery, galleryTextsectionsSchema, BlogpageTextsections];
+const schemas = [
+    keramik, 
+    keramikCategory, 
+    textilCategory, 
+    textil, 
+    landingPage, 
+    heroSection, 
+    logo, 
+    trippleImage, 
+    navbarLogo, 
+    contactInfoSchema, 
+    contactPage, 
+    contactPageImages, 
+    BlogPost, 
+    gallery, 
+    galleryTextsectionsSchema, 
+    BlogpageTextsections, 
+    storePageTextsectionsSchema,
+    authorSchema,
+];
 
 export default schemas;
