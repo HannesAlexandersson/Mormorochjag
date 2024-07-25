@@ -40,8 +40,7 @@ const Contact = async () => {
                         src={sortedContactData[0].imageUrl} 
                         alt={sortedContactData[0].title} 
                         width={300}
-                        height={500}
-                        objectFit='contain'                                
+                        height={500}                                                        
                         />
                     </div>
                 </section>
@@ -53,8 +52,7 @@ const Contact = async () => {
                         src={sortedContactData[1].imageUrl} 
                         alt={sortedContactData[1].title} 
                         width={300}
-                        height={500}
-                        objectFit='contain'                                
+                        height={500}                                                        
                         />
                     </div>
                     
