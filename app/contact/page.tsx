@@ -1,21 +1,24 @@
 import Image from "next/image";
+import { sanityFetch } from "@/sanity/client";
 import { PortableText } from '@portabletext/react';
 import Hero from "../components/Hero/Hero";
-import { getHero, getContactPage,  } from "@/sanity/sanity-utils";
+import { getHero, getContactPage,  } from "@/sanity/querys";
+import { HeroData } from "../page";
 
 interface ContactPageSection {
     title: string;
-    paragraph: any; // Adjust this type based on your Portable Text configuration
+    description: any; // Adjust this type based on your Portable Text configuration
     position: number; // Numeric position
-    image: string;
+    imageUrl: string;
     imageAlt: string;
+    sort(arg0: (a: ContactPageSection, b: ContactPageSection) => number): ContactPageSection[];
 }
 
 
 const Contact = async () => {
-    const heroData = await getHero();    
+    const heroData = await sanityFetch<HeroData[]>({ query: getHero });    
 
-    const contactData = await getContactPage();
+    const contactData = await sanityFetch<ContactPageSection[]>({ query: getContactPage});
     const sortedContactData = contactData.sort((a: ContactPageSection, b: ContactPageSection) => a.position - b.position);
     
     return (
