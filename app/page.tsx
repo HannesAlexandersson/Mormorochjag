@@ -80,8 +80,7 @@ export default async function Home() {
             src={section.image}
             alt={section.alt || 'Personal images'}
             width={300}
-            height={500}
-            objectFit="contain"
+            height={500}           
             className="p-6 md:p-16"
           />
         </div>
@@ -104,8 +103,7 @@ export default async function Home() {
                   src={(section.trippleImages as any)[`image${imgIndex + 1}`]}
                   alt={(section.trippleImages as any)[`alt${imgIndex + 1}`]}
                   width={300}
-                  height={500}
-                  objectFit="cover"
+                  height={500}                  
                 />
               </div>
             ))}

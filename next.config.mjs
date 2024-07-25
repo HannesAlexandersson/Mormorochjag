@@ -13,6 +13,7 @@ const nextConfig = {
   experimental: {
     taint: true,
   },
+  transpilePackages: ['lucide-react'],
 };
 
 export default nextConfig;
