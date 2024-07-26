@@ -1,9 +1,10 @@
 import Image from "next/image";
+import { groq } from "next-sanity";
 import { sanityFetch } from "@/sanity/client";
 import { PortableText } from '@portabletext/react';
-import Hero from "../components/Hero/Hero";
+import Hero, { HeroData } from "@/app/components/Hero/Hero";
 import { getHero, getContactPage,  } from "@/sanity/querys";
-import { HeroData } from "../page";
+
 
 interface ContactPageSection {
     title: string;
@@ -14,9 +15,15 @@ interface ContactPageSection {
     sort(arg0: (a: ContactPageSection, b: ContactPageSection) => number): ContactPageSection[];
 }
 
-
+//e5a62374-841f-4876-ac6a-1e675bd703c0
 const Contact = async () => {
-    const heroData = await sanityFetch<HeroData[]>({ query: getHero });    
+    const heroData = await sanityFetch<HeroData[]>({ 
+        query: groq`*[_type == "heroSection" && _id == "e5a62374-841f-4876-ac6a-1e675bd703c0"]{             
+            title,
+            "DesktopImg": backgroundImage.asset->url,
+              "alt": backgroundImage.alt,
+          }`
+     });    
 
     const contactData = await sanityFetch<ContactPageSection[]>({ query: getContactPage});
     const sortedContactData = contactData.sort((a: ContactPageSection, b: ContactPageSection) => a.position - b.position);
@@ -24,7 +31,7 @@ const Contact = async () => {
     return (
         <>
             <main>
-                <Hero hero={heroData[1]} isLanding={false} />
+                <Hero hero={heroData[0]} isLanding={false} />
 
                 <section className="section-contain flex flex-col md:flex-row w-full h-auto my-16 md:my-32">
                     <div className="flex-1 flex items-start justify-center p-6 md:p-16">

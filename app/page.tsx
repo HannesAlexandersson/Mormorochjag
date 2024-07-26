@@ -1,8 +1,10 @@
 import Image from "next/image";
 import { sanityFetch } from "@/sanity/client";
 import { PortableText } from '@portabletext/react';
+import { groq } from "next-sanity";
 import { getHero, getLandingPage, getTrippleImage } from "@/sanity/querys";
-import Hero from "./components/Hero/Hero";
+import Hero, { HeroData } from "@/app/components/Hero/Hero";
+
 
 
 interface LandingPageSection {
@@ -28,23 +30,23 @@ interface LandingPageProps {
 
 
 
-export interface HeroData {
-  title: string;
-  DesktopImg: string;
-  alt: string;  
-}
+
 
 export interface HeroProps {
   hero: HeroData;
   isLanding?: boolean;  
 }
-
+//0102a4a9-990e-48c3-a3ff-9858babe5f23
 
 export default async function Home() { 
 
-  const heroData = await sanityFetch<HeroData[]>({
-    query: getHero,
-  }) 
+  const heroData = await sanityFetch<HeroData[]>({ 
+    query: groq`*[_type == "heroSection" && _id == "0102a4a9-990e-48c3-a3ff-9858babe5f23"]{             
+        title,
+        "DesktopImg": backgroundImage.asset->url,
+          "alt": backgroundImage.alt,
+      }`
+ });    
   
 
   const landingPageData = await sanityFetch<LandingPageProps>({
