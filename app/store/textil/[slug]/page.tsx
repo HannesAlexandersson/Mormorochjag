@@ -6,13 +6,26 @@ import Link from 'next/link'
 import Button from '@/app/components/Button/Button'
 import { groq } from 'next-sanity'
 import { MailQuestion } from 'lucide-react'
+import Hero from '@/app/components/Hero/Hero'
+
+interface HeroData {
+    title: string;
+    DesktopImg: string;
+    alt: string;    
+  }
+  
+ interface HeroProps {
+    hero: HeroData;
+    isLanding?: boolean;
+  }
 
 interface Params {
     slug: string;
   }
 
 interface categoryIdData {
-    _id: string;
+    id: string;
+    image: string;
 }
 
 interface TextilObjectData {
@@ -42,10 +55,16 @@ interface PageProps {
     
 
     const slug = params.slug;
-    const categoryId = await sanityFetch<categoryIdData>({
-        query: groq`*[_type == "textilCategory" && slug.current == $slug][0]._id`,
+    const categoryData = await sanityFetch<categoryIdData>({
+        query: groq`*[_type == "textilCategory" && slug.current == $slug][0] {
+                    "id": _id,
+                    "image": image.asset->url
+                    }
+                `,
         params: { slug }
     })
+    
+    const categoryId = categoryData.id;
 
     const textilObjects = await sanityFetch<TextilObjectData[]>({
         query: groq`*[_type == "textil" && category._ref == $categoryId]{
@@ -57,9 +76,7 @@ interface PageProps {
                     _id,
                 } | order(asc)`,
         params: { categoryId }
-      });
-
-    console.log(textilObjects);
+      });   
 
     if (textilObjects.length === 0) {
         redirect('/store/textil')
@@ -68,10 +85,16 @@ interface PageProps {
     const first = formattedSlug.charAt(0);
     formattedSlug = formattedSlug.replace(first, first.toUpperCase());
 
+    const customHero = {
+        title: formattedSlug,
+        DesktopImg: categoryData.image,
+        alt: formattedSlug
+    }
+
     return(
         <>
         <main>
-
+            <Hero hero={customHero} isLanding={false} />
             <section className="section-contain flex flex-col w-full h-auto my-16 md:my-32">
                 <div className="w-full md:w-1/2 flex flex-col items-start justify-start py-6">
                     <h2 className="text-6xl underline underline-offset-4 py-2">{formattedSlug}</h2>                

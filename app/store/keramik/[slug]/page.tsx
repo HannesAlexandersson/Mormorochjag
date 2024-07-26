@@ -6,13 +6,26 @@ import Link from 'next/link'
 import Button from '@/app/components/Button/Button'
 import { groq } from 'next-sanity'
 import { MailQuestion } from 'lucide-react'
+import Hero from '@/app/components/Hero/Hero'
+
+interface HeroData {
+    title: string;
+    DesktopImg: string;
+    alt: string;    
+  }
+  
+ interface HeroProps {
+    hero: HeroData;
+    isLanding?: boolean;
+  }
 
 interface Params {
     slug: string;
   }
 
-interface categoryIdData {
-    _id: string;
+  interface categoryIdData {
+    id: string;
+    image: string;
 }
 
 interface KeramikObjectData {
@@ -42,10 +55,16 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
     
 
     const slug = params.slug;
-    const categoryId = await sanityFetch<categoryIdData>({
-        query: groq`*[_type == "kermaikCategory" && slug.current == $slug][0]._id`,
+    const categoryData = await sanityFetch<categoryIdData>({
+        query: groq`*[_type == "kermaikCategory" && slug.current == $slug][0] {
+                    "id": _id,
+                    "image": image.asset->url
+                    }
+                `,
         params: { slug }
     })
+    
+    const categoryId = categoryData.id;
 
     const keramikObjects = await sanityFetch<KeramikObjectData[]>({
         query: groq`*[_type == "keramik" && category._ref == $categoryId]{
@@ -59,16 +78,22 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
         params: { categoryId }
       });
       
-      if (!keramikObjects) redirect('/store/keramik')
+    if (!keramikObjects) redirect('/store/keramik')
 
     let formattedSlug = slug.split('-').join(' ');
     const first = formattedSlug.charAt(0);
     formattedSlug = formattedSlug.replace(first, first.toUpperCase());
 
+    const customHero = {
+        title: formattedSlug,
+        DesktopImg: categoryData.image,
+        alt: formattedSlug
+    }
+
     return(
         <>
         <main>
-
+            <Hero hero={customHero} isLanding={false}  />
             <section className="section-contain flex flex-col w-full h-auto my-16 md:my-32">
                 <div className="w-full md:w-1/2 flex flex-col items-start justify-start py-6">
                     <h2 className="text-6xl underline underline-offset-4 py-2">{formattedSlug}</h2>                
