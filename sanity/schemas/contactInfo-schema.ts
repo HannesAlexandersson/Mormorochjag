@@ -41,7 +41,7 @@ const contactInfoSchema = {
                         {
                             name: 'icon',
                             title: 'Icon',
-                            type: 'image',
+                            type: 'string',
                             description: 'Namnet på ikonen för sociala medier från lucid-icons',
                         }
                     ],

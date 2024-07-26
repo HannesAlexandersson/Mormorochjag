@@ -3,8 +3,22 @@ import { groq } from "next-sanity";
 import { sanityFetch } from "@/sanity/client";
 import { PortableText } from '@portabletext/react';
 import Hero, { HeroData } from "@/app/components/Hero/Hero";
-import { getHero, getContactPage,  } from "@/sanity/querys";
+import { socials, getContactPage,  } from "@/sanity/querys";
+import Icon from "../components/Icon/Icon";
 
+
+
+interface SocialMediaItem {    
+    platform: string;
+    link: string;
+    icon: string;
+  }
+  
+  // Interface for the main document
+  interface DocumentWithSocialMedia {
+    email: string;
+    socialMedia: SocialMediaItem[];
+  }
 
 interface ContactPageSection {
     title: string;
@@ -25,9 +39,14 @@ const Contact = async () => {
           }`
      });    
 
+    const socialData = await sanityFetch<DocumentWithSocialMedia[]>({
+        query: socials,
+    });
+
     const contactData = await sanityFetch<ContactPageSection[]>({ query: getContactPage});
     const sortedContactData = contactData.sort((a: ContactPageSection, b: ContactPageSection) => a.position - b.position);
     
+
     return (
         <>
             <main>
@@ -56,36 +75,21 @@ const Contact = async () => {
                     ) }
                 </section>
 
-                <section className="section-contain flex flex-col md:flex-row w-full h-auto my-16 md:my-32">
-                     {sortedContactData[1].imageUrl && (
-                    <div className="relative flex flex-1 items-start justify-center ">
-                        <Image 
-                        src={sortedContactData[1].imageUrl} 
-                        alt={sortedContactData[1].title} 
-                        width={300}
-                        height={500}                                                        
-                        />
-                    </div>
-                        ) }
-                    
-                    <div className="flex-1 flex items-start justify-center p-6 md:p-16">
-                        <div>
-                        <h2 className="text-4xl font-bold mb-4">{sortedContactData[1].title}</h2>
-                        <div className="text-lg">
-                            <p>{sortedContactData[1].description} </p>
-                        </div>
-                        </div>
-                    </div>
-                    
-                </section>
-
+                
                 <section className="section-contain flex flex-col w-full h-auto my-8 md:my-16">
                     <div className="p-6 md:p-16">
                         <h2 className="text-3x1 font-bold mb-1">Kontaktuppgifter:</h2>
                     </div>
                     <div  className="p-6 md:p-16">
-                        <p>Email: </p>
-                        <p>Socialamedier: </p>
+                        <p>Email: {socialData[0].email}</p>
+                        <p>Socialamedier:</p>
+                        <div className="text-annika-blue">
+                            {socialData[0].socialMedia.map((social, index) => (
+                                <a key={index} href={social.link} target="_blank" rel="noreferrer">
+                                    <Icon name={social.icon} size={38} strokeWidth={2} />
+                                </a>
+                            ))}
+                        </div>
                     </div>
                 </section>
             </main>

@@ -130,3 +130,12 @@ export const getKeramikObject = groq`*[_type == "keramikObject" && slug.current 
     "alt": image.alt,
     }
 `;
+
+export const socials = groq`*[_type == "contactInfo"]{  
+  email,
+  "socialMedia": socialMedia[]{
+    platform,
+    link,
+    icon,
+  }
+}`;
