@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { groq } from "next-sanity";
 import { sanityFetch } from "@/sanity/client";
 import { PortableText } from '@portabletext/react';
@@ -46,7 +47,7 @@ const Contact = async () => {
     const contactData = await sanityFetch<ContactPageSection[]>({ query: getContactPage});
     const sortedContactData = contactData.sort((a: ContactPageSection, b: ContactPageSection) => a.position - b.position);
     
-console.log(socialData[0].socialMedia)
+
     return (
         <>
             <main>
@@ -85,9 +86,9 @@ console.log(socialData[0].socialMedia)
                         <p>Socialamedier:</p>
                         <div className="text-annika-blue">
                             {socialData[0].socialMedia.map((social, index) => (
-                                <a key={index} href={social.link} target="_blank" rel="noreferrer">
-                                    <Icon name={social.icon} size={38} strokeWidth={2} />
-                                </a>
+                                <Link key={index} href={social.link} target="_blank" rel="noreferrer">
+                                    <Icon name="instagram" size={28} strokeWidth={1} />
+                                </Link>
                             ))}
                         </div>
                     </div>
