@@ -15,7 +15,7 @@ interface categoryIdData {
     _id: string;
 }
 
-interface KeramikObjectData {
+interface TextilObjectData {
     title: string;
     description: string;
     image: string;
@@ -23,11 +23,12 @@ interface KeramikObjectData {
     slug: string;
     _id: string;
 }
+
 interface PageProps {
     params: Params;
   }
 
-export const generateMetadata = async ({ params }: { params: Params }) => {
+  export const generateMetadata = async ({ params }: { params: Params }) => {
     let object = params.slug.split('-').join(' ')
     const first = object.charAt(0)
     object = object.replace(first, first.toUpperCase())
@@ -37,18 +38,17 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
     }
   }
 
-
-  const KeramikObject: React.FC<PageProps> = async ({ params }: { params: Params }) => {
+  const TextilObject: React.FC<PageProps> = async ({ params }: { params: Params }) => {
     
 
     const slug = params.slug;
     const categoryId = await sanityFetch<categoryIdData>({
-        query: groq`*[_type == "kermaikCategory" && slug.current == $slug][0]._id`,
+        query: groq`*[_type == "textilCategory" && slug.current == $slug][0]._id`,
         params: { slug }
     })
 
-    const keramikObjects = await sanityFetch<KeramikObjectData[]>({
-        query: groq`*[_type == "keramik" && category._ref == $categoryId]{
+    const textilObjects = await sanityFetch<TextilObjectData[]>({
+        query: groq`*[_type == "textil" && category._ref == $categoryId]{
                     title,
                     description,
                     "image": image.asset->url,
@@ -58,9 +58,12 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
                 } | order(asc)`,
         params: { categoryId }
       });
-      
-      if (!keramikObjects) redirect('/store/keramik')
 
+    console.log(textilObjects);
+
+    if (textilObjects.length === 0) {
+        redirect('/store/textil')
+    }
     let formattedSlug = slug.split('-').join(' ');
     const first = formattedSlug.charAt(0);
     formattedSlug = formattedSlug.replace(first, first.toUpperCase());
@@ -77,7 +80,7 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
 
             <section className="section-contain flex flex-col w-full h-auto my-8 md:my-16">
                 <div className="w-full flex flex-wrap gap-6 justify-evenly">
-                    {keramikObjects.map((object) => (
+                    {textilObjects.map((object) => (
                         <div key={object._id} className="flex flex-col md:flex-row gap-6 bg-annika-lightGreen shadow-md shadow-slate-600 w-full md:w-2/5 ">
                             <div 
                                 className="w-full md:w-1/2 h-96 bg-center bg-cover bg-no-repeat" 
@@ -95,7 +98,7 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
 
             <section className="section-contain flex flex-col my-8 md:my-16">
             <div className='w-full flex justify-center items-center'>
-                <Link href='/store/keramik'>
+                <Link href='/store/textil'>
                     <Button  variant="primary"  className='w-full sm:w-fit' >
                         Tillbaka
                     </Button>
@@ -115,4 +118,4 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
     );
 }
 
-export default KeramikObject;
+export default TextilObject;
