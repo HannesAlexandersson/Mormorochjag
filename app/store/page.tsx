@@ -1,6 +1,6 @@
 import { sanityFetch } from "@/sanity/client";
 import Link from "next/link";
-import Hero, { HeroData } from "../components/Hero/Hero";
+import Hero, { HeroData } from "@/app/components/Hero/Hero";
 import { groq } from "next-sanity";
 import { getStorePageTextSections } from "@/sanity/querys";
 
@@ -47,7 +47,7 @@ const Store = async () => {
 
             <section className="section-contain flex flex-col my-8 md:my-16">
                 <div className="flex items-center justify-center">
-                    <h2 className="text-4xl underline underline-offset-4 py-2">Kategorier</h2>
+                    <h2 className="text-4xl underline underline-offset-4 pt-2 pb-6">Kategorier</h2>
                 </div>
                 <div className="w-full flex flex-row gap-6">
                     

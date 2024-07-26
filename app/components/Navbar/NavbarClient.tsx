@@ -1,34 +1,87 @@
-'use client'
+'use client';
 
-import React from 'react';
-import Image from 'next/image'
-import Link from 'next/link'
-import { useContext, useState } from 'react'
-import { cn } from '@/lib/utils'
-import Button from '../Button/Button'
-import pageLinks from '@/lib/pageLinks'
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { cn, isBrowser } from '@/lib/utils';
+import Button from '../Button/Button';
+import pageLinks from '@/lib/pageLinks';
 
 interface NavbarProps {
   logo: {
-    logo: string
-    alt?: string
-  }
+    logo: string;
+    alt?: string;
+  };
+  withBg?: boolean;
+  variant?: 'dark' | 'light';
 }
 
-const Navbar:React.FC<NavbarProps> = ({logo}) => {
-    const [showMenu, setShowMenu] = useState(false);
-    const [linkIndex, setLinkIndex] = useState(null)
-   
-  
-    const handleToggle = () => {
-      setShowMenu(!showMenu);
-    };
+const Navbar: React.FC<NavbarProps> = ({ logo, withBg = false, variant = 'light' }) => {
+  const [showMenu, setShowMenu] = useState(false);
+  const [linkIndex, setLinkIndex] = useState<number | null>(null);
+  const [showBackdrop, setShowBackdrop] = useState<boolean>(false);
+  const [isNavDown, setIsNavDown] = useState(true);
+  const [scrollPos, setScrollPos] = useState(0);
+
+  const isNavBellow = () => {
+    if (!isBrowser()) return false;
+    return isNavDown && scrollPos > window.innerHeight / 3;
+  };
+
+  const toggle = (show: boolean) => {
+    setShowMenu(show);
+    setTimeout(() => setShowBackdrop(show), !show ? 300 : 0);
+  };
+
+  const handleKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>) => {
+    if (ev.key === 'Escape' && showMenu) {
+      ev.preventDefault();
+      toggle(false);
+    }
+  };
+
+  const handleScroll = () => {
+    const { scrollY } = window;
+    const isScrollingDown = scrollY > scrollPos;
+    const isScrollingUp = scrollY < scrollPos;
+    const isPastThreshold = Math.abs(scrollY - scrollPos) > 5;
+    const isPastScreenThird = scrollPos > window.innerHeight / 3 - 50;
+
+    if (isNavDown && isPastScreenThird && isScrollingDown && isPastThreshold) {
+      setIsNavDown(false);
+      if (showMenu) toggle(false);
+    }
+
+    if (isScrollingUp && isPastThreshold && !isNavDown) {
+      setIsNavDown(true);
+    }
+
+    setScrollPos(scrollY);
+  };
+
+  useEffect(() => {
+    if (isBrowser()) {
+      window.addEventListener('scroll', handleScroll);
+      window.addEventListener('keydown', handleKeyDown as any);
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+        window.removeEventListener('keydown', handleKeyDown as any);
+      };
+    }
+  }, [scrollPos, showMenu, isNavDown]);
+
+  const handleToggle = () => {
+    setShowMenu(!showMenu);
+  };
   
     return (
       <>
         <div
           className={cn(
-            'fixed inset-0 z-30 flex h-20 select-none items-center justify-between overflow-y-visible bg-transparent px-6 text-white transition-all duration-300 xl:px-16'
+            'fixed inset-0 z-30 flex h-20 select-none items-center justify-between overflow-y-visible bg-transparent px-6 text-white transition-all duration-300 xl:px-16',
+            { 'opacity-0': !isNavDown },
+            { 'bg-white bg-opacity-90 shadow-bottom': withBg || isNavBellow() },
+            { 'bg-black': variant === 'dark' },
           )}
         >
           <Link href={'/'}>
@@ -43,8 +96,11 @@ const Navbar:React.FC<NavbarProps> = ({logo}) => {
           <Button
             onClick={handleToggle}
             className={cn(
-              'fixed right-6 top-10 z-99 flex h-10 w-10 -translate-y-1/2 flex-col items-center justify-center gap-1 p-0 transition-opacity duration-300 hover:bg-grey xl:right-16 bg-annika-pink text-annika-blue hover:bg-annika-cream'
+              'fixed right-6 top-10 z-99 flex h-10 w-10 -translate-y-1/2 flex-col items-center justify-center gap-1 p-0 transition-opacity duration-300 hover:bg-grey xl:right-16 bg-annika-pink text-annika-blue hover:bg-annika-cream',
+              { 'bg-transparent hover:bg-transparent': !withBg && !isNavBellow() },
+              { 'cursor-default opacity-0': !isNavDown },
             )}
+            disabled={!isNavDown}
             variant={'empty'}
             aria-label='Open navigation menu'
           >
@@ -66,7 +122,7 @@ const Navbar:React.FC<NavbarProps> = ({logo}) => {
           >
             <Link href={link.path}>
               <p
-                onClick={() => handleToggle}
+                onClick={handleToggle}
                 className={'py-2 text-end text-xl font-medium uppercase text-annika-pink hover:text-annika-blue'}                           
               >
                 {link.title}

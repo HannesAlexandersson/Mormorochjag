@@ -5,10 +5,10 @@ const textilCategory = {
     type: 'document',
     fields: [
         {
-        title: 'category',
-        name: 'Category',
-        type: 'string',
-       description: 'Namn på kategorin'
+            name: 'title',
+            title: 'Title',
+            type: 'string',
+            description: 'Namn på kategorin'
         },
         {
             name: 'slug',
@@ -31,7 +31,14 @@ const textilCategory = {
         name: 'image',
         type: 'image',
         options: { hotspot: true },
-        }
+        fields: [
+            {
+                name: 'alt',
+                title: 'Alt',
+                type: 'string',                   
+            }
+        ]
+        },
     ]
 }
 

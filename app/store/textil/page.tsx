@@ -1,14 +1,66 @@
+import { groq } from 'next-sanity';
+import { sanityFetch } from '@/sanity/client';
+import Hero, { HeroData } from "@/app/components/Hero/Hero";
+import Link from 'next/link';
+import Button from '@/app/components/Button/Button';
+import { getTextilCategory } from '@/sanity/querys';
+
+interface TextilCatData {
+    _id: string;
+    title: string;
+    slug: string;
+    image: string;
+}
 
 
 const Textil = async () => {
-    //ha med en bakåtknapp
+    const heroData = await sanityFetch<HeroData[]>({ 
+        query: groq`*[_type == "heroSection" && _id == "103c5e21-f1bf-4e38-9439-ebb6b4e82524"]{             
+            title,
+            "DesktopImg": backgroundImage.asset->url,
+              "alt": backgroundImage.alt,
+          }`
+     });
+
+    const textilCatData = await sanityFetch<TextilCatData[]>({
+        query: getTextilCategory,
+    });
+    
     return(
     <>
     <main>
+        <Hero hero={heroData[0]} isLanding={false} />
+
         <section className="section-contain flex flex-col w-full h-auto my-16 md:my-32">
             <div className="w-full md:w-1/2 flex flex-col items-start justify-start py-6">
-                <h2 className="text-3xl underline underline-offset-4 py-2">Textil och pastill</h2>
-                <p>Textil och pastill</p>
+                <h2 className="text-6xl underline underline-offset-4 py-2">Kategorier</h2>                
+            </div>            
+        </section>
+
+        <section className="section-contain flex flex-col w-full h-auto my-8 md:my-16">
+
+        <div className="w-full flex flex-col md:flex-row gap-6">
+            {textilCatData.map((section) => (
+                <Link key={section._id} href={`/store/textil/${section.slug}`}>
+                    <div                        
+                        className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 h-48 min-w-max md:w-48 bg-center bg-cover bg-no-repeat"
+                        style={{ backgroundImage: `url('${section.image}')` }}
+                    >
+                        <p className="text-annika-orange text-2xl p-1">{section.title}</p>
+                    </div>
+                </Link>
+            ))} 
+        </div>
+
+        </section>
+
+        <section className="section-contain flex flex-col my-8 md:my-16">
+            <div className='w-full flex justify-center items-center'>
+                <Link href='/store'>
+                    <Button  variant="primary"  className='w-full sm:w-fit' >
+                        Tillbaka
+                    </Button>
+                </Link>
             </div>
         </section>
     </main>
