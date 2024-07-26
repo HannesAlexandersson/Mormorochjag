@@ -36,7 +36,7 @@ const Keramik = async () => {
 
         <section className="section-contain flex flex-col w-full h-auto my-16 md:my-32">
             <div className="w-full md:w-1/2 flex flex-col items-start justify-start py-6">
-                <h2 className="text-3xl underline underline-offset-4 py-2">Kategorier</h2>                
+                <h2 className="text-6xl underline underline-offset-4 py-2">Kategorier</h2>                
             </div>            
         </section>
 
@@ -49,7 +49,7 @@ const Keramik = async () => {
                         className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 h-48 min-w-max md:w-48 bg-center bg-cover bg-no-repeat"
                         style={{ backgroundImage: `url('${section.image}')` }}
                     >
-                        <p className="text-annika-orange text-2xl">{section.title}</p>
+                        <p className="text-annika-orange text-2xl p-1">{section.title}</p>
                     </div>
                 </Link>
             ))} 

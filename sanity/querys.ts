@@ -121,3 +121,12 @@ export const getTextilCategory = groq`*[_type == "textilCategory"]{
     "image": image.asset->url,
       "alt": image.alt,
 } | order(asc)`;
+
+export const getKeramikObject = groq`*[_type == "keramikObject" && slug.current == $slug]{
+  title,
+  description,
+  price,
+  "image": image.asset->url,
+    "alt": image.alt,
+    }
+`;
