@@ -5,7 +5,8 @@ import { getNavbarLogo } from "@/sanity/querys";
 interface NavbarProps {    
     logo: string
     alt: string
-    
+    withBg?: boolean;
+    variant?: 'dark' | 'light';
   }
 
   interface NavProps {
@@ -17,7 +18,7 @@ const Navbar = async () => {
    
   return (
     <div>
-      <NavbarClient logo={logo[0]} />
+      <NavbarClient logo={logo[0]} withBg={false} variant='light'/>
     </div>
   );
 };
