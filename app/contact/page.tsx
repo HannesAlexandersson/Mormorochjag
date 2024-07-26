@@ -10,8 +10,8 @@ interface ContactPageSection {
     title: string;
     description: any; // Adjust this type based on your Portable Text configuration
     position: number; // Numeric position
-    imageUrl: string;
-    imageAlt: string;
+    imageUrl?: string;
+    imageAlt?: string;
     sort(arg0: (a: ContactPageSection, b: ContactPageSection) => number): ContactPageSection[];
 }
 
