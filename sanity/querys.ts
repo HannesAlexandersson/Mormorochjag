@@ -103,3 +103,21 @@ export const getStorePageTextSections = groq`*[_type == "storePageTextsections"]
  text,
     position,
 } | order(position asc)`;
+
+export const getKeramikCategory = groq`*[_type == "kermaikCategory"]{ 
+  _id,
+  title,
+   "slug": slug.current,
+    description,
+    "image": image.asset->url,
+      "alt": image.alt,
+} | order(asc)`;
+
+export const getTextilCategory = groq`*[_type == "textilCategory"]{ 
+  _id,
+  title,
+   "slug": slug.current,
+    description,
+    "image": image.asset->url,
+      "alt": image.alt,
+} | order(asc)`;

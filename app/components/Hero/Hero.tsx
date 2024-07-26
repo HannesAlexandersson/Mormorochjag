@@ -36,12 +36,14 @@ const Hero: React.FC<HeroProps> = ({ hero, isLanding }) => {
               <h1 className='text-4xl sm:text-5xl lg:text-8xl'>{hero.title}</h1>
             </div>
             {isLanding && (
-            <Button
-            className='w-full sm:w-fit'
-            variant='outlined-secondary'
-            >
-                <Link href='#'>Besök galleriet</Link>
-            </Button>
+              <Link href='/gallery'>
+                <Button
+                className='w-full sm:w-fit'
+                variant='outlined-secondary'
+                >
+                    Besök galleriet
+                </Button>
+            </Link>
             )}
           </div>
         </div>
