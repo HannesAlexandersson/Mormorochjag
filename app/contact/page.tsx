@@ -46,7 +46,7 @@ const Contact = async () => {
     const contactData = await sanityFetch<ContactPageSection[]>({ query: getContactPage});
     const sortedContactData = contactData.sort((a: ContactPageSection, b: ContactPageSection) => a.position - b.position);
     
-
+console.log(socialData[0].socialMedia)
     return (
         <>
             <main>
