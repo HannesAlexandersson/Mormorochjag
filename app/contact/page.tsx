@@ -5,6 +5,7 @@ import { sanityFetch } from "@/sanity/client";
 import { PortableText } from '@portabletext/react';
 import Hero, { HeroData } from "@/app/components/Hero/Hero";
 import { socials, getContactPage,  } from "@/sanity/querys";
+import { isValidIcon } from "@/lib/utils";
 import Icon from "../components/Icon/Icon";
 
 
@@ -47,7 +48,7 @@ const Contact = async () => {
     const contactData = await sanityFetch<ContactPageSection[]>({ query: getContactPage});
     const sortedContactData = contactData.sort((a: ContactPageSection, b: ContactPageSection) => a.position - b.position);
     
-
+    
     return (
         <>
             <main>
@@ -87,7 +88,11 @@ const Contact = async () => {
                         <div className="text-annika-blue">
                             {socialData[0].socialMedia.map((social, index) => (
                                 <Link key={index} href={social.link} target="_blank" rel="noreferrer">
-                                    <Icon name="instagram" size={28} strokeWidth={1} />
+                                    {isValidIcon(social.icon) ? (
+                                        <Icon name={social.icon} size={28} strokeWidth={1} />
+                                    ) : (
+                                        <Icon name="mail-warning" size={28} strokeWidth={1} />
+                                    )}
                                 </Link>
                             ))}
                         </div>
