@@ -32,7 +32,7 @@ const BlogPostFull: React.FC<PostData> = async ({ post }) => {
     }`,
         params: { id: post.authorId }
     });
-   console.log(author);
+   
     return(
         <>
             
@@ -40,8 +40,8 @@ const BlogPostFull: React.FC<PostData> = async ({ post }) => {
                 <h2 className='text-4xl'>{post.title}</h2>
                 <PortableText value={post.content} />
                 
+                <Image src={author.image} alt={post.author} width={50} height={50} />
                 <p className="text-sm text-gray-500 mt-2">{new Date(post.publishedAt).toLocaleDateString()},  {post.author}</p>
-                <Image src={author.image} alt={author.name} width={50} height={50} />
             
             </div>
             
