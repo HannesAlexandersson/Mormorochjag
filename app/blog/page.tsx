@@ -64,7 +64,7 @@ const BlogPage = async () => {
                     <div className="flex flex-col md:flex-row w-full h-auto my-4 md:my-32">
                         <div className="flex-1 flex flex-col md:flex-row gap-2 items-start justify-start p-6">
                             {blogPosts.map((post, index) => (
-                                <div key={post.authorId}>
+                                <div key={post.authorId} className='w-full'>
                                     <Link href={`/blog/${post.slug}`}>
                                         <BlogPostExp key={index} post={post} />
                                     </Link>
