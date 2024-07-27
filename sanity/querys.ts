@@ -69,12 +69,13 @@ export const getNavbarLogo =
 
 export const getBlogPosts = groq`*[_type == "blogPost"]{
     title,
-    slug,
-    mainImage,
+    "slug": slug.current,
+     "authorId": author._ref,
+    "image": coverImage.asset->url,
     publishedAt,
     excerpt,
     "author": author->name,
-    "categories": categories[]->title
+    content,
   } | order(publishedAt desc)`;
 
 export const getBlogPageTextSections = groq`*[_type == "blogPageTextSections"]{
@@ -138,4 +139,13 @@ export const socials = groq`*[_type == "contactInfo"]{
     link,
     icon,
   }
+}`;
+
+export const getFullPost = groq`*[_type == "blogPost" && slug.current == $slug][0]{
+  title,
+  "authorId": author._ref,
+  "image": coverImage.asset->url,
+  publishedAt,
+  "author": author->name,
+  content
 }`;
