@@ -9,7 +9,7 @@ const pageLinks = [
       path: '/gallery',
     },
     {
-      title: 'Affär',
+      title: 'Butik',
       path: '/store',
     },
     {

@@ -49,17 +49,17 @@ const Store = async () => {
                 <div className="flex items-center justify-center">
                     <h2 className="text-4xl underline underline-offset-4 pt-2 pb-6">Kategorier</h2>
                 </div>
-                <div className="w-full flex flex-row gap-6">
+                <div className="w-full flex flex-col md:flex-row gap-6 items-center justify-center">
                     
-                    <Link className="flex-1" href="/store/keramik">
-                        <div className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 bg-keramik bg-cover bg-center bg-no-repeat h-48" >
+                    <Link className="flex-1 w-2/3 " href="/store/keramik">
+                        <div className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 bg-keramik bg-cover bg-center bg-no-repeat h-48 w-full" >
                             <p className="text-annika-orange text-2xl">Keramik</p>
                         </div>
                     </Link>
 
-                    <Link className="flex-1" href="/store/textil">
-                        <div className="rounded-md shadow-lg shadow-gray-600 flex flex-1 items-center justify-center bg-textil bg-cover bg-center bg-no-repeat h-48">
-                            <p className="text-annika-orange text-2xl">Textil och pastill</p>
+                    <Link className="flex-1 w-2/3" href="/store/textil">
+                    <div className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 bg-textil bg-cover bg-center bg-no-repeat h-48 w-full" >
+                            <p className="text-annika-orange text-2xl">Textil</p>
                         </div>
                     </Link>
                    

@@ -61,18 +61,22 @@ const BlogPage = async () => {
                 </section>
 
                 <section className="section-contain w-full h-auto my-8 md:my-16">
-                    <div className="flex flex-col md:flex-row w-full h-auto my-4 md:my-32">
-                        <div className="flex-1 flex flex-col md:flex-row gap-2 items-start justify-start p-6">
+                    <div className="flex flex-col md:flex-row w-full h-auto my-4 md:my-32 gap-2 items-start justify-start p-6">
+                        
                             {blogPosts.map((post, index) => (
-                                <div key={post.authorId}>
-                                    <Link href={`/blog/${post.slug}`}>
+                                
+                                    <Link 
+                                    key={post.publishedAt} 
+                                    className='flex-1' 
+                                    href={`/blog/${post.slug}`}
+                                    >
                                         <BlogPostExp key={index} post={post} />
                                     </Link>
-                                </div>
+                               
                             ))}
                             
                         </div>
-                    </div>
+                    
                 </section>
             </main>
         </>

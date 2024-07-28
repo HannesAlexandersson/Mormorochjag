@@ -84,13 +84,13 @@ export const getBlogPageTextSections = groq`*[_type == "blogPageTextSections"]{
     position
   } | order(position asc)`;
 
-export const getGallery = groq`*[_type == "gallery"]{
-    title,
-    "images": images[] {
-      "image": image.asset->url,
-      "alt": image.alt,
-    }
-  }`;
+export const getGalleryCat = groq`*[_type == "galleryCategories"]{
+  categoryName,
+    categoryDescription,
+    "bgImage": categoryImage.asset->url,
+      "id": _id,
+    "slug": slug.current,
+}`;
 
 export const getGalleryTextSections = groq`*[_type == "galleryTextsections"]{
     title,
@@ -149,3 +149,9 @@ export const getFullPost = groq`*[_type == "blogPost" && slug.current == $slug][
   "author": author->name,
   content
 }`;
+
+export const getGalleryPageObjects = groq`*[_type == "gallery" && category._ref == $categoryId]{
+            title,
+            description,
+            "image": images.asset->url,
+        }`;

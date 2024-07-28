@@ -17,11 +17,13 @@ interface BlogPostExpDataProps {
 
 const BlogPostExp: React.FC<BlogPostExpDataProps> = ({ post }) => {
     const bgColor = randomBgColor();
-console.log(bgColor, 'bgColor')
+    console.log(`Background color applied: ${bgColor}`);
     return(
-        <>
+       
             
-                <div className={`flex flex-col border-2 ${bgColor} border-l-violet-50 shadow-md w-full md:w-64 h-96 p-2 m-2`}>
+                <div                 
+                className={`flex flex-col border-2 ${bgColor} border-l-violet-50 shadow-md w-full md:w-64 h-96 p-2 m-2`}
+                >                   
                     <div className="flex-shrink-0 h-2/6 relative">
                         <Image 
                         src={post.image} 
@@ -39,7 +41,7 @@ console.log(bgColor, 'bgColor')
                 </div>
            
         
-        </>
+       
         
     );
 }
