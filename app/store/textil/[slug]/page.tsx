@@ -7,6 +7,7 @@ import Button from '@/app/components/Button/Button'
 import { groq } from 'next-sanity'
 import { MailQuestion } from 'lucide-react'
 import Hero from '@/app/components/Hero/Hero'
+import ObjectCard from '@/app/components/ObjectCard/ObjectCard'
 
 interface HeroData {
     title: string;
@@ -104,17 +105,7 @@ interface PageProps {
             <section className="section-contain flex flex-col w-full h-auto my-8 md:my-16">
                 <div className="w-full flex flex-wrap gap-6 justify-evenly">
                     {textilObjects.map((object) => (
-                        <div key={object._id} className="flex flex-col md:flex-row gap-6 bg-annika-lightGreen shadow-md shadow-slate-600 w-full md:w-2/5 ">
-                            <div 
-                                className="w-full md:w-1/2 h-96 bg-center bg-cover bg-no-repeat" 
-                                style={{ backgroundImage: `url('${object.image}')` }}
-                            ></div>
-                            <div className="w-full md:w-1/2 flex flex-col items-start justify-start p-3">
-                                <h3 className="text-4xl underline underline-offset-4 py-2">{object.title}</h3>
-                                <p className="text-2xl">{object.description}</p>
-                                <p className="text-2xl">{object.price} kr</p>
-                            </div>
-                        </div>
+                        <ObjectCard key={object._id} object={object} />
                     ))}
                 </div>
             </section>
@@ -142,3 +133,17 @@ interface PageProps {
 }
 
 export default TextilObject;
+
+/*
+<div key={object._id} className="flex flex-col md:flex-row gap-6 bg-annika-lightGreen shadow-md shadow-slate-600 w-full md:w-2/5 ">
+                            <div 
+                                className="w-full md:w-1/2 h-96 bg-center bg-cover bg-no-repeat" 
+                                style={{ backgroundImage: `url('${object.image}')` }}
+                            ></div>
+                            <div className="w-full md:w-1/2 flex flex-col items-start justify-start p-3">
+                                <h3 className="text-4xl underline underline-offset-4 py-2">{object.title}</h3>
+                                <p className="text-2xl">{object.description}</p>
+                                <p className="text-2xl">{object.price} kr</p>
+                            </div>
+                        </div>
+*/

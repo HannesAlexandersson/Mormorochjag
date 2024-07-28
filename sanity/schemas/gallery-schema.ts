@@ -22,6 +22,13 @@ const gallery = {
         title: 'Description',
         type: 'text',
         description: 'Text describing the image, what you want to be displayed',
+        },
+        {
+            name: 'category',
+            title: 'Category',
+            type: 'reference',
+            to: [{ type: 'galleryCategories' }],
+            description: 'Kategori för galleriet',
         }
     ],
     };
