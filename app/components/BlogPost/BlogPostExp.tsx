@@ -1,3 +1,6 @@
+'use client'
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { randomBgColor } from '@/lib/utils';
@@ -16,8 +19,18 @@ interface BlogPostExpDataProps {
 }
 
 const BlogPostExp: React.FC<BlogPostExpDataProps> = ({ post }) => {
-    const bgColor = randomBgColor();
-    console.log(`Background color applied: ${bgColor}`);
+    const [bgColor, setBgColor] = useState<string>('');
+    const [date, setDate] = useState<string>('');
+
+    useEffect(() => {
+        setDate(new Date(post.publishedAt).toLocaleDateString());
+    }, [post.publishedAt]);
+
+
+    useEffect(() => {
+        setBgColor(randomBgColor());
+    }, []);
+
     return(
        
             
@@ -28,7 +41,8 @@ const BlogPostExp: React.FC<BlogPostExpDataProps> = ({ post }) => {
                         <Image 
                         src={post.image} 
                         alt={post.title} 
-                        layout="fill" 
+                        fill={true}
+                        sizes='100%'
                         objectFit="cover" 
                         className="rounded-t-md"
                         />
@@ -36,7 +50,7 @@ const BlogPostExp: React.FC<BlogPostExpDataProps> = ({ post }) => {
                     <div className="flex flex-col flex-grow p-2">
                         <h2 className="text-2xl font-bold mb-1">{post.title}</h2>
                         <p className="text-base flex-grow">{post.excerpt}</p>
-                        <p className="text-sm text-gray-500 mt-2">{new Date(post.publishedAt).toLocaleDateString()}</p>
+                        <p className="text-sm text-gray-500 mt-2">{date}</p>
                     </div>
                 </div>
            
