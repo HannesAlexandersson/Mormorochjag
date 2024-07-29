@@ -23,7 +23,7 @@ const Hero: React.FC<HeroProps> = ({ hero, isLanding }) => {
           src={hero.DesktopImg}
           alt={hero.alt || 'Hero image'}          
           quality={100}
-          fill
+          fill={true}
           sizes="100vw"
           style={{
             objectFit: 'cover',

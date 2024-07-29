@@ -4,6 +4,7 @@ import Link from "next/link";
 import { groq } from "next-sanity";
 import { getGalleryPageObjects } from "@/sanity/querys";
 import Button from "@/app/components/Button/Button";
+import { title } from "process";
 
 interface GalleryObjectData {
     title: string;
@@ -47,21 +48,25 @@ const GalleryPage: React.FC<PageProps> = async ({ params }: { params: Params }) 
         params: { categoryId }
       });
 
-      const customHero = {
-        title: object,
-        DesktopImg: categoryData.bgImage,
-        alt: object
-      }
+      const heroData = await sanityFetch<HeroData[]>({ 
+        query: groq`*[_type == "heroSection" && _id == "2519f822-d060-4786-ac47-361fded5f4e3"]{             
+            title,
+            "DesktopImg": backgroundImage.asset->url,
+              "alt": backgroundImage.alt,
+          }`
+     });
+
+     
     return(
         <main>
-            <Hero hero={customHero} isLanding={false} />
+            <Hero hero={heroData[0]} isLanding={false} />
             <section className="section-contain flex flex-col w-full h-auto my-16 md:my-32">
                 <div  className="w-full md:w-1/2 flex gap-1 flex-col items-start justify-start py-6">
                     <h2 className="text-3xl underline underline-offset-4 py-2">{object}</h2>            
                 </div>         
-                <div className="w-full flex flex-row gap-6">
+                <div className="w-full flex flex-col md:flex-row gap-6">
                     {galeryObjects.map((object) => (
-                        <div key={object._id} className="flex flex-col md:flex-row gap-6 bg-annika-lightGreen shadow-md shadow-slate-600 w-full md:w-2/5 ">
+                        <div key={object._id} className="flex flex-col md:flex-row gap-6 bg-annika-cream shadow-md shadow-slate-600 w-full md:w-2/5 ">
                         <div 
                             className="w-full md:w-1/2 h-96 bg-center bg-cover bg-no-repeat" 
                             style={{ backgroundImage: `url('${object.image}')` }}

@@ -72,7 +72,7 @@ export default async function Home() {
         <div className="flex-1 flex items-start justify-center p-6 md:p-16">
           <div>
             <h2 className="text-4xl font-bold mb-4">{section.title}</h2>
-            <div className="text-lg">
+            <div className="text-lg md:text-2xl">
               <PortableText value={section.paragraph} />
             </div>
           </div>
@@ -83,7 +83,15 @@ export default async function Home() {
             alt={section.alt || 'Personal images'}
             width={300}
             height={500}           
-            className="p-6 md:p-16"
+            className="p-6 md:p-16 md:hidden"
+            style={{ objectFit: 'contain' }}
+          />
+          <Image
+            src={section.image}
+            alt={section.alt || 'Personal images'}
+            fill={true}           
+            className="p-6 md:p-16 sm:hidden md:block"
+            style={{ objectFit: 'contain' }}
           />
         </div>
       </div>

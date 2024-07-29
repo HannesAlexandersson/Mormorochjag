@@ -52,7 +52,7 @@ const Galleriet = async () => {
         <div className="flex flex-col items-start justify-start py-6">
             <h2 className="text-3xl underline underline-offset-4 py-2">Kategorier</h2>            
         </div>
-        <div className="flex flex-col md:flex-row gap-6">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-6">
             {galleryCategories.map((category) => (
                 <Link key={category.id} className="flex-1 w-2/3" href={`/gallery/${category.slug}`}>
                     <div className="w-full">
