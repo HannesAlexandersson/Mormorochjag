@@ -79,28 +79,28 @@ const Contact = async () => {
 
                 
                 <section className="section-contain flex flex-col w-full h-auto my-8 md:my-16">
-                    <div className="p-6 md:p-16">
+                    <div className="pt-6 md:pt-16">
                         <h2 className="text-4x1 font-bold underline underline-offset-2 mb-1">Kontaktuppgifter:</h2>
                     </div>
 
                     <div  className="flex flex-col gap-2 p-6 md:p-8">
                         <div className="text-annika-blue flex flex-col gap-3">
                             <div className="flex flex-row gap-3">
-                                <Link href="mailto:annikaalexanderson@hotmail.com">
+                                <Link href="mailto:annikaalexanderson@hotmail.com" className="flex flex-row gap-3">
                                     <Icon name="mail" size={28} strokeWidth={1} />
+                                    <p>{socialData[0].email}</p>
                                 </Link>
-                                <p>{socialData[0].email}</p>
                             </div>
                             {socialData[0].socialMedia.map((social, index) => (
                                 <div key={index} className="flex flex-row gap-3">
-                                    <Link href={social.link} target="_blank" rel="noreferrer">
+                                    <Link href={social.link} target="_blank" rel="noreferrer" className="flex flex-row gap-3">
                                         {isValidIcon(social.icon) ? (
                                             <Icon name={social.icon} size={28} strokeWidth={1} />
                                         ) : (
                                             <Icon name="mail-warning" size={28} strokeWidth={1} />
                                         )}
+                                        <p>{social.platform}</p>
                                     </Link>
-                                    <p>{social.platform}</p>
                                 </div>
                             ))}
                         </div>

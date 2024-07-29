@@ -32,8 +32,10 @@ const BlogPostExp: React.FC<BlogPostExpDataProps> = ({ post }) => {
     }, []);
 
     return(
-       
-            
+       <>
+        {bgColor && (
+
+           
                 <div                 
                 className={`flex flex-col border-2 ${bgColor} border-l-violet-50 shadow-md w-full md:w-64 h-96 p-2 m-2`}
                 >                   
@@ -55,8 +57,8 @@ const BlogPostExp: React.FC<BlogPostExpDataProps> = ({ post }) => {
                 </div>
            
         
-       
-        
+            )}
+        </>
     );
 }
 export default BlogPostExp;
