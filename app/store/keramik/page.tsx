@@ -42,7 +42,7 @@ const Keramik = async () => {
 
         <section className="section-contain flex flex-col w-full h-auto my-8 md:my-16">
 
-        <div className="w-full flex flex-col md:flex-row gap-6">
+        <div className="flex flex-col md:flex-row flex-wrap gap-6">
             {keramikCatData.map((section) => (
                 <Link key={section._id} href={`/store/keramik/${section.slug}`}>
                     <div                        
