@@ -42,6 +42,15 @@ const BlogPage = async () => {
         query: getBlogPosts
     });
 
+    /* const bgColor = randomBgColor();
+ */
+    const colors = [
+        'bg-annika-blue',        
+        'bg-annika-lightGreen',
+        'bg-annika-darkGreen',
+        'bg-annika-cream',
+        'bg-annika-orange',        
+      ];
 
     return (
         <>
@@ -61,16 +70,17 @@ const BlogPage = async () => {
                 </section>
 
                 <section className="section-contain w-full h-auto my-8 md:my-16">
-                    <div className="flex flex-col md:flex-row w-full h-auto my-4 md:my-32 gap-2 items-start justify-start p-6">
+                    <div className="flex flex-col md:flex-row w-full h-auto my-4 md:my-32 gap-6 items-start justify-start p-6">
                         
                             {blogPosts.map((post, index) => (
-                                
-                                    <Link 
-                                    key={post.publishedAt}                                     
-                                    href={`/blog/${post.slug}`}
-                                    >
+                                <div  
+                                className='w-full md:w-64'
+                                key={post.publishedAt}
+                                >
+                                    <Link href={`/blog/${post.slug}`} className='max-w-fit ' >
                                         <BlogPostExp key={index} post={post} />
                                     </Link>
+                                </div>
                                
                             ))}
                             
