@@ -66,8 +66,7 @@ const BlogPage = async () => {
                             {blogPosts.map((post, index) => (
                                 
                                     <Link 
-                                    key={post.publishedAt} 
-                                    className='flex-1' 
+                                    key={post.publishedAt}                                     
                                     href={`/blog/${post.slug}`}
                                     >
                                         <BlogPostExp key={index} post={post} />

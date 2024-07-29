@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { VisualEditing } from "next-sanity";
 import { draftMode } from "next/headers";
-import { Rowdies, Inter } from "next/font/google";
+import { Questrial, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 
-const rowdies = Rowdies({ 
+const rowdies = Questrial({ 
   variable: "--font-rowdies",
-  subsets: ["latin"], weight: ["300", "400", "700"] });
+  subsets: ["latin"], weight: [ "400"] });
 
 const sans = Inter({
   variable: '--font-sans',
