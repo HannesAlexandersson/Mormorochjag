@@ -83,7 +83,7 @@ const Contact = async () => {
                         <h2 className="text-4x1 font-bold underline underline-offset-2 mb-1">Kontaktuppgifter:</h2>
                     </div>
 
-                    <div  className="flex flex-col gap-2 p-6 md:p-8">
+                    <div  className="flex flex-col gap-2 py-6 md:py-8">
                         <div className="text-annika-blue flex flex-col gap-3">
                             <div className="flex flex-row gap-3">
                                 <Link href="mailto:annikaalexanderson@hotmail.com" className="flex flex-row gap-3">
