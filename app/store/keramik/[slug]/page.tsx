@@ -94,13 +94,8 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
         <>
         <main>
             <Hero hero={customHero} isLanding={false}  />
+            
             <section className="section-contain flex flex-col w-full h-auto my-16 md:my-32">
-                <div className="w-full md:w-1/2 flex flex-col items-start justify-start py-6">
-                    <h2 className="text-6xl underline underline-offset-4 py-2">{formattedSlug}</h2>                
-                </div>
-            </section>
-
-            <section className="section-contain flex flex-col w-full h-auto my-8 md:my-16">
                 <div className="w-full flex flex-wrap gap-6 justify-evenly">
                     {keramikObjects.map((object) => (
                         <ObjectCard key={object.title} object={object} />
