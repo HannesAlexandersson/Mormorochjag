@@ -49,10 +49,8 @@ const Galleriet = async () => {
     </section>
 
     <section className="section-contain flex flex-col w-full h-auto my-16 md:my-32">
-        <div className="flex flex-col items-start justify-start py-6">
-            <h2 className="text-3xl underline underline-offset-4 py-2">Kategorier</h2>            
-        </div>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+        
+        <div className="flex flex-col md:flex-row items-center justify-center gap-6 pt-6">
             {galleryCategories.map((category) => (
                 <Link key={category.id} className="flex-1 w-2/3" href={`/gallery/${category.slug}`}>
                     <div className="w-full">
