@@ -119,11 +119,11 @@ interface PageProps {
                         {textilCategories.map((section) => (
                             <Link key={section._id} href={`/store/textil/${section.slug}`}>
                                 {slug === section.slug ? (
-                                    <div className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 h-18 md:h-28 min-w-20 md:w-28 bg-center bg-cover bg-no-repeat ring-2" >
+                                    <div className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 h-18 md:h-28 min-w-20 md:min-w-max md:w-28 bg-center bg-cover bg-no-repeat ring-2" >
                                         <p className="text-annika-orange text-2xl p-1">{section.title}</p>
                                     </div>
                                 ) : (
-                                    <div className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 h-18 md:h-28 min-w-20 md:w-28 bg-center bg-cover bg-no-repeat" >
+                                    <div className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 h-18 md:h-28 min-w-20 md:min-w-max md:w-28 bg-center bg-cover bg-no-repeat" >
                                         <p className="text-annika-orange text-2xl px-2 md:p-1">{section.title}</p>
                                     </div>
                                 )}
