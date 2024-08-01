@@ -4,6 +4,7 @@ import Hero, { HeroData } from "@/app/components/Hero/Hero";
 import Link from 'next/link';
 import Button from '@/app/components/Button/Button';
 import { getTextilCategory } from '@/sanity/querys';
+import { Suspense } from 'react'
 
 interface TextilCatData {
     _id: string;
@@ -29,8 +30,9 @@ const Textil = async () => {
     return(
     <>
     <main>
-        <Hero hero={heroData[0]} isLanding={false} />
-
+        <Suspense fallback={<p>Loading Hero...</p>}>
+            <Hero hero={heroData[0]} isLanding={false} />
+        </Suspense>
         <section className="section-contain flex flex-col w-full h-auto my-16 md:my-32">
 
         <div className="w-full flex flex-col md:flex-row gap-6">
@@ -49,10 +51,15 @@ const Textil = async () => {
         </section>
 
         <section className="section-contain flex flex-col my-8 md:my-16">
-            <div className='w-full flex justify-center items-center'>
+            <div className='w-full flex justify-center items-center gap-4'>
                 <Link href='/store'>
                     <Button  variant="primary"  className='w-full sm:w-fit' >
                         Tillbaka
+                    </Button>
+                </Link>
+                <Link href='/store/keramik'>
+                    <Button  variant="primary"  className='w-full sm:w-fit' >
+                        Besök Keramik
                     </Button>
                 </Link>
             </div>

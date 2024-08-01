@@ -42,6 +42,12 @@ interface PageProps {
     params: Params;
   }
 
+  interface CategoryData {
+    _id: string
+    title: string
+    slug: string
+  }
+
   export const generateMetadata = async ({ params }: { params: Params }) => {
     let object = params.slug.split('-').join(' ')
     const first = object.charAt(0)
@@ -53,6 +59,14 @@ interface PageProps {
   }
 
   const TextilObject: React.FC<PageProps> = async ({ params }: { params: Params }) => {
+
+    const textilCategories = await sanityFetch<CategoryData[]>({
+        query: groq`*[_type == "textilCategory"]{
+          _id,
+          title,
+          "slug": slug.current
+        }`,
+      })
     
 
     const slug = params.slug;
@@ -80,6 +94,7 @@ interface PageProps {
       });   
 
     if (textilObjects.length === 0) {
+        alert('Inga produkter hittades, du kommer att skickas tillbaka till textil');
         redirect('/store/textil')
     }
     let formattedSlug = slug.split('-').join(' ');
@@ -99,6 +114,26 @@ interface PageProps {
             
 
             <section className="section-contain flex flex-col w-full h-auto my-16 md:my-32">
+            {textilCategories && (
+                    <div className="flex flex-row flex-wrap gap-3 md:gap-6 items-center justify-center py-6 md:py-12">
+                        {textilCategories.map((section) => (
+                            <Link key={section._id} href={`/store/textil/${section.slug}`}>
+                                {slug === section.slug ? (
+                                    <div className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 h-18 md:h-28 min-w-20 md:w-28 bg-center bg-cover bg-no-repeat ring-2" >
+                                        <p className="text-annika-orange text-2xl p-1">{section.title}</p>
+                                    </div>
+                                ) : (
+                                    <div className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 h-18 md:h-28 min-w-20 md:w-28 bg-center bg-cover bg-no-repeat" >
+                                        <p className="text-annika-orange text-2xl px-2 md:p-1">{section.title}</p>
+                                    </div>
+                                )}
+                                
+                            </Link>
+                        ))}
+                </div>
+                )}
+
+
                 <div className="w-full flex flex-wrap gap-6 justify-evenly">
                     {textilObjects.map((object) => (
                         <ObjectCard key={object._id} object={object} />
@@ -107,10 +142,15 @@ interface PageProps {
             </section>
 
             <section className="section-contain flex flex-col my-8 md:my-16">
-            <div className='w-full flex justify-center items-center'>
+            <div className='w-full flex justify-center items-center gap-4'>
                 <Link href='/store/textil'>
                     <Button  variant="primary"  className='w-full sm:w-fit' >
                         Tillbaka
+                    </Button>
+                </Link>
+                <Link href='/store/keramik'>
+                    <Button  variant="primary"  className='w-full sm:w-fit' >
+                        Besök keramik
                     </Button>
                 </Link>
             </div>
