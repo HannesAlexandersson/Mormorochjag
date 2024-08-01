@@ -105,10 +105,15 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
             </section>
 
             <section className="section-contain flex flex-col my-8 md:my-16">
-            <div className='w-full flex justify-center items-center'>
+            <div className='w-full flex justify-center items-center gap-4'>
                 <Link href='/store/keramik'>
                     <Button  variant="primary"  className='w-full sm:w-fit' >
                         Tillbaka
+                    </Button>
+                </Link>
+                <Link href='/store/textil'>
+                    <Button  variant="primary"  className='w-full sm:w-fit' >
+                        Besök textil
                     </Button>
                 </Link>
             </div>

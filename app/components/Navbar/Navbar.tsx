@@ -23,4 +23,12 @@ const Navbar = async () => {
   );
 };
 
+export const NavbarSkeleton = () => {
+  return (
+    <div>
+      <NavbarClient logo={{logo: '', alt: ''}} withBg={false} variant='light'/>
+    </div>
+  );
+}
+
 export default Navbar;

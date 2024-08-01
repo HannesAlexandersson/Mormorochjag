@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Button from '../Button/Button';
 import Link from 'next/link';
+import Skeleton from '../Skeleton/Skeleton';
 
 export interface HeroData {
     title: string;
@@ -50,5 +51,11 @@ const Hero: React.FC<HeroProps> = ({ hero, isLanding }) => {
       </section>
     );
   };
+
+export const HeroSkeleton = () => {
+    return (
+      <Skeleton className='h-screen' />
+    );
+  }
   
   export default Hero;
