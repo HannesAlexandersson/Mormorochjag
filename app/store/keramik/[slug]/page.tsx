@@ -8,6 +8,7 @@ import { groq } from 'next-sanity'
 import { MailQuestion } from 'lucide-react'
 import Hero from '@/app/components/Hero/Hero'
 
+
 interface HeroData {
     title: string;
     DesktopImg: string;
@@ -40,6 +41,12 @@ interface PageProps {
     params: Params;
   }
 
+  interface CategoryData {
+    _id: string
+    title: string
+    slug: string
+  }
+
 export const generateMetadata = async ({ params }: { params: Params }) => {
     let object = params.slug.split('-').join(' ')
     const first = object.charAt(0)
@@ -52,6 +59,14 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
 
 
   const KeramikObject: React.FC<PageProps> = async ({ params }: { params: Params }) => {
+
+    const keramikCategories = await sanityFetch<CategoryData[]>({
+        query: groq`*[_type == "kermaikCategory"]{
+          _id,
+          title,
+          "slug": slug.current
+        }`,
+      })
     
 
     const slug = params.slug;
@@ -78,7 +93,10 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
         params: { categoryId }
       });
       
-    if (!keramikObjects) redirect('/store/keramik')
+    if (!keramikObjects){
+        alert('Inga objekt hittades, du kommer att skickas tillbaka till keramik sidan');
+        redirect('/store/keramik');
+    }
 
     let formattedSlug = slug.split('-').join(' ');
     const first = formattedSlug.charAt(0);
@@ -96,6 +114,27 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
             <Hero hero={customHero} isLanding={false}  />
             
             <section className="section-contain flex flex-col w-full h-auto my-16 md:my-32">
+                {keramikCategories && (
+                    <div className="flex flex-row flex-wrap gap-3 md:gap-6 items-center justify-center py-6 md:py-12">
+                        {keramikCategories.map((section) => (
+                            <Link key={section._id} href={`/store/keramik/${section.slug}`}>
+                                {slug === section.slug ? (
+                                    <div className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 h-18 md:h-28 min-w-20 md:w-28 bg-center bg-cover bg-no-repeat ring-2" >
+                                        <p className="text-annika-orange text-2xl p-1">{section.title}</p>
+                                    </div>
+                                ) : (
+                                    <div className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 h-18 md:h-28 min-w-20 md:w-28 bg-center bg-cover bg-no-repeat" >
+                                        <p className="text-annika-orange text-2xl px-2 md:p-1">{section.title}</p>
+                                    </div>
+                                )}
+                                
+                            </Link>
+                        ))}
+                </div>
+                )}
+                
+
+
                 <div className="w-full flex flex-wrap gap-6 justify-evenly">
                     {keramikObjects.map((object) => (
                         <ObjectCard key={object.title} object={object} />
@@ -133,18 +172,4 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
 
 export default KeramikObject;
 
- /*  
- REFERENCES:
- <div key={object._id} className="flex flex-col md:flex-row gap-6 bg-annika-lightGreen shadow-md shadow-slate-600 w-full md:w-2/5 ">
-    <div 
-        className="w-full md:w-1/2 h-96 bg-center bg-cover bg-no-repeat" 
-        style={{ backgroundImage: `url('${object.image}')` }}
-    ></div>
-    <div className="w-full md:w-1/2 flex flex-col items-start justify-start p-3">
-        <h3 className="text-4xl underline underline-offset-4 py-2">{object.title}</h3>
-        <p className="text-2xl">{object.description}</p>
-        <p className="text-2xl">{object.price} kr</p>
-    </div>
-</div>
-                        
-*/
+ 

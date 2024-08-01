@@ -25,7 +25,7 @@ import { useEffect } from 'react'
       <>
         
         <main className='section-contain mt-20 min-h-screen'>
-          <h1>FEL</h1>
+          
           <section className='mx-auto my-16 flex max-w-[500px] flex-col items-center gap-4 text-center md:my-32'>
             <OctagonX size={200} />
             <h3>Sidan kunde inte laddas</h3>

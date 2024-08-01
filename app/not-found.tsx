@@ -9,7 +9,7 @@ const NotFound = () => {
     <>
       <Navbar />
       <main className='section-contain min-h-screen pt-20'>
-        <h1>404 page not found</h1>
+        
         <section className='mx-auto flex max-w-[500px] flex-col items-center gap-4 py-16 md:py-32'>
           <OctagonX size={200} />
           <h2>Sidan kunde inte hittas</h2>
