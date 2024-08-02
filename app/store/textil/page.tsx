@@ -30,9 +30,9 @@ const Textil = async () => {
     return(
     <>
     <main>
-        <Suspense fallback={<p>Loading Hero...</p>}>
+        
             <Hero hero={heroData[0]} isLanding={false} />
-        </Suspense>
+        
         <section className="section-contain flex flex-col w-full h-auto my-16 md:my-32">
 
         <div className="w-full flex flex-col md:flex-row gap-6">
