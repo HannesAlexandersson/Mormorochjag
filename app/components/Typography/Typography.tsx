@@ -49,4 +49,5 @@ const Typography: React.FC<TypographyProps> = ({ children, className, variant = 
   )
 }
 
+
 export default Typography

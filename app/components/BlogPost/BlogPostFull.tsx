@@ -2,6 +2,10 @@ import Image from 'next/image';
 import { PortableText } from '@portabletext/react';
 import { sanityFetch } from '@/sanity/client';
 import { groq } from 'next-sanity';
+import serializers from '../Serializer/Serializer';
+import Typography from '../Typography/Typography';
+import { cn } from '@/lib/utils';
+import components from '../CustomPort/CustomPort';
 
 interface BlogPostData {
     title: string;
@@ -32,11 +36,24 @@ const BlogPostFull: React.FC<PostData> = async ({ post }) => {
     }`,
         params: { id: post.authorId }
     });
-   
+    
     return(
-        <>
-            
-            <div>                
+        
+            <div className={cn('')}>
+                <Typography variant="h2">{post.title}</Typography>
+                <PortableText value={post.content} components={components} />
+
+                <Image src={author.image} alt={post.author} width={50} height={50} />
+                <Typography className='text-gray-500 mt-2' variant="p" size="sm">{new Date(post.publishedAt).toLocaleDateString()},  {post.author}</Typography>
+            </div>
+        
+        
+    );
+}
+export default BlogPostFull;
+
+/*
+<div>                
                 <h2 className='text-4xl'>{post.title}</h2>
                 <PortableText value={post.content} />
                 
@@ -44,10 +61,4 @@ const BlogPostFull: React.FC<PostData> = async ({ post }) => {
                 <p className="text-sm text-gray-500 mt-2">{new Date(post.publishedAt).toLocaleDateString()},  {post.author}</p>
             
             </div>
-            
-        
-        </>
-        
-    );
-}
-export default BlogPostFull;
+*/
