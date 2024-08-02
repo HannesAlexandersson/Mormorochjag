@@ -4,6 +4,7 @@ import { PortableText } from '@portabletext/react';
 import { groq } from "next-sanity";
 import { getHero, getLandingPage, getTrippleImage } from "@/sanity/querys";
 import Hero, { HeroData } from "@/app/components/Hero/Hero";
+import components from "./components/CustomPort/CustomPort";
 
 
 
@@ -73,7 +74,7 @@ export default async function Home() {
           <div>
             <h2 className="text-4xl font-bold mb-4">{section.title}</h2>
             <div className="text-lg md:text-2xl">
-              <PortableText value={section.paragraph} />
+              <PortableText value={section.paragraph} components={components}/>
             </div>
           </div>
         </div>
@@ -102,7 +103,7 @@ export default async function Home() {
             <div>
               <h2 className="text-4xl font-bold mb-4">{section.title}</h2>
               <div className="text-lg">
-                <PortableText value={section.paragraph} />
+                <PortableText value={section.paragraph} components={components} />
               </div>
             </div>
           </div>
