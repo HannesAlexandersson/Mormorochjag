@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { PortableText } from '@portabletext/react';
 import { sanityFetch } from '@/sanity/client';
 import { groq } from 'next-sanity';
-import serializers from '../Serializer/Serializer';
 import Typography from '../Typography/Typography';
 import { cn } from '@/lib/utils';
 import components from '../CustomPort/CustomPort';

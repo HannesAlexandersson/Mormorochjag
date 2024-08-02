@@ -5,6 +5,15 @@ import Link from 'next/link';
 import {PortableTextComponents} from '@portabletext/react'
 import exp from 'constants';
 
+/*
+normal: ({children}: any) => {
+            if (children.length === 1 && children[0] === '') {
+              return <br />
+            }
+            return <Typography variant="p">{children}</Typography> 
+        },
+*/
+
 const components: PortableTextComponents = {
     types: {
 
@@ -17,12 +26,7 @@ const components: PortableTextComponents = {
         h5: ({children}) => <Typography variant="h5">{children}</Typography>,
         h6: ({children}) => <Typography variant="h6">{children}</Typography>,
         blockquote: ({children}) => <blockquote className="border-l-purple-500">{children}</blockquote>,
-        normal: ({children}: any) => {
-            if (children.length === 1 && children[0] === '') {
-              return <br />
-            }
-            return <Typography variant="p">{children}</Typography> 
-        },
+        normal: ({children}) => <Typography variant="p" className='mb-2'>{children}</Typography>,
     },
     marks: {
         // Ex. 1: custom renderer for the em / italics decorator
