@@ -2,6 +2,7 @@ import { sanityFetch } from '@/sanity/client'
 import { redirect } from 'next/navigation'
 
 import ObjectCard from '@/app/components/ObjectCard/ObjectCard'
+import ObjectCardList from '@/app/components/ObjectCardList/ObjectCardList'
 import Link from 'next/link'
 import Button from '@/app/components/Button/Button'
 import { groq } from 'next-sanity'
@@ -37,6 +38,7 @@ interface KeramikObjectData {
     price: number;
     slug: string;
     _id: string;
+    position: number;
 }
 interface PageProps {
     params: Params;
@@ -148,12 +150,13 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
                 
 
 
-                <div className="w-full flex flex-wrap gap-6 justify-evenly">
+               {/*  <div className="w-full flex flex-wrap gap-6 justify-evenly">
                     {keramikObjects.map((object) => (
                         <ObjectCard key={object.title} object={object} />
                       
                     ))}
-                </div>
+                </div> */}
+                <ObjectCardList objects={keramikObjects} />
             </section>
 
             <section className="section-contain flex flex-col my-8 md:my-16">
