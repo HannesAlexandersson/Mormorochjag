@@ -46,19 +46,21 @@ export default function ObjectCardList({ objects }: { objects: ObjectData[] }) {
      
 
       {selectedImage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70" onClick={closeModal}>
-          <div className="relative max-w-4xl max-h-4xl p-4 bg-white rounded shadow-lg">
+        <div className="fixed inset-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-70" onClick={closeModal}>
+          <div className="flex items-center justify-center relative w-[75%] h-[80%]  p-4 bg-white rounded shadow-lg">
             <button onClick={closeModal} className="absolute top-0 right-0 m-2 text-gray-600 text-2xl">
               &times;
             </button>
-            <Image
-              src={selectedImage}
-              alt="Selected object"
-              layout="responsive"  // Use responsive layout
-              width={400}          // Adjust as needed
-              height={400}         // Adjust as needed
-              className="object-contain" // Ensure image scales correctly
-            />
+            <div className='flex justify-center items-center w-full h-full p-2'>
+              <Image
+                src={selectedImage}
+                alt="Selected object image"
+                fill={true}  
+                style={{objectFit: "contain"}}
+                priority={true}       
+                className='rounded-lg p-2'
+              />
+            </div>
           </div>
         </div>
       )}
