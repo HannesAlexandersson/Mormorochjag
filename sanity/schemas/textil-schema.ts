@@ -53,6 +53,12 @@ const textil = {
             type: 'reference',
             to: [{ type: 'textilCategory' }],
             description: 'Kategori för textilen'
+        },
+        {
+            name: 'position',
+            title: 'Position',
+            type: 'number',
+            description: 'Position i ordningen, lägst först. Om två har samma position sorteras de alfabetiskt. Om lämnas tom hamnar objectet sist.'
         }
     ]
 };

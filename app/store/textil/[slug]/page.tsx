@@ -89,7 +89,8 @@ interface PageProps {
                     price,
                     "slug": slug.current,
                     _id,
-                } | order(asc)`,
+                    position,
+                } | order(position asc)`,
         params: { categoryId }
       });   
 
