@@ -8,6 +8,7 @@ import { groq } from 'next-sanity'
 import { MailQuestion } from 'lucide-react'
 import Hero from '@/app/components/Hero/Hero'
 import ObjectCard from '@/app/components/ObjectCard/ObjectCard'
+import ObjectCardList from '@/app/components/ObjectCardList/ObjectCardList'
 
 interface HeroData {
     title: string;
@@ -138,11 +139,12 @@ interface PageProps {
                 )}
 
 
-                <div className="w-full flex flex-wrap gap-6 justify-evenly">
+               {/*  <div className="w-full flex flex-wrap gap-6 justify-evenly">
                     {textilObjects.map((object) => (
                         <ObjectCard key={object._id} object={object} />
                     ))}
-                </div>
+                </div> */}
+                <ObjectCardList objects={textilObjects} />
             </section>
 
             <section className="section-contain flex flex-col my-8 md:my-16">
