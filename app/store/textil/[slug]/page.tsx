@@ -37,6 +37,7 @@ interface TextilObjectData {
     price: number;
     slug: string;
     _id: string;
+    position: number;
 }
 
 interface PageProps {
