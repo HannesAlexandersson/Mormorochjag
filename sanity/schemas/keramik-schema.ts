@@ -53,6 +53,12 @@ const keramik = {
             type: 'reference',
             to: [{ type: 'kermaikCategory' }],
             description: 'Kategori för keramiken'
+        },
+        {
+            name: 'position',
+            title: 'Position',
+            type: 'number',
+            description: 'Position i ordningen, lägst först. Om två har samma position sorteras de alfabetiskt. Om lämnas tom hamnar objectet sist.'
         }
     ]
 }

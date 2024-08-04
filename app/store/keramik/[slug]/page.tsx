@@ -89,9 +89,20 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
                     price,
                     "slug": slug.current,
                     _id,
-                } | order(asc)`,
+                    position,
+                } | order(position asc)`,
         params: { categoryId }
       });
+    /* order by name:
+*[_type == "keramik" && category._ref == $categoryId]{
+                    title,
+                    description,
+                    "image": image.asset->url,
+                    price,
+                    "slug": slug.current,
+                    _id,
+                } | order(title desc)
+    */
       
     if (!keramikObjects){
         alert('Inga objekt hittades, du kommer att skickas tillbaka till keramik sidan');
