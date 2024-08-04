@@ -92,7 +92,7 @@ interface PageProps {
                     "slug": slug.current,
                     _id,
                     position,
-                } | order(position desc, title desc)`,
+                } | order(position asc, title asc)`,
         params: { categoryId }
       });   
 
