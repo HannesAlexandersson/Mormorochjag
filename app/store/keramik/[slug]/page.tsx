@@ -25,6 +25,7 @@ interface Params {
   }
 
   interface categoryIdData {
+    title: string;
     id: string;
     image: string;
 }
@@ -72,6 +73,7 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
     const slug = params.slug;
     const categoryData = await sanityFetch<categoryIdData>({
         query: groq`*[_type == "kermaikCategory" && slug.current == $slug][0] {
+                    title,
                     "id": _id,
                     "image": image.asset->url
                     }
@@ -90,7 +92,7 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
                     "slug": slug.current,
                     _id,
                     position,
-                } | order(position asc)`,
+                } | order(position desc, title desc)`,
         params: { categoryId }
       });
     /* order by name:
@@ -114,7 +116,7 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
     formattedSlug = formattedSlug.replace(first, first.toUpperCase());
 
     const customHero = {
-        title: formattedSlug,
+        title: categoryData.title,
         DesktopImg: categoryData.image,
         alt: formattedSlug
     }

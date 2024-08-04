@@ -25,6 +25,7 @@ interface Params {
   }
 
 interface categoryIdData {
+    title: string;
     id: string;
     image: string;
 }
@@ -72,6 +73,7 @@ interface PageProps {
     const slug = params.slug;
     const categoryData = await sanityFetch<categoryIdData>({
         query: groq`*[_type == "textilCategory" && slug.current == $slug][0] {
+                    title,
                     "id": _id,
                     "image": image.asset->url
                     }
@@ -90,7 +92,7 @@ interface PageProps {
                     "slug": slug.current,
                     _id,
                     position,
-                } | order(position asc)`,
+                } | order(position desc, title desc)`,
         params: { categoryId }
       });   
 
@@ -103,7 +105,7 @@ interface PageProps {
     formattedSlug = formattedSlug.replace(first, first.toUpperCase());
 
     const customHero = {
-        title: formattedSlug,
+        title: categoryData.title,
         DesktopImg: categoryData.image,
         alt: formattedSlug
     }
