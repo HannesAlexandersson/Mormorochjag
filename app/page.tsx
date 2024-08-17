@@ -48,6 +48,8 @@ export default async function Home() {
           "alt": backgroundImage.alt,
       }`
  });    
+
+  
   
 
   const landingPageData = await sanityFetch<LandingPageProps>({
