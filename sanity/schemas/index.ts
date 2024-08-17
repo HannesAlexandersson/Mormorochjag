@@ -17,6 +17,7 @@ import BlogpageTextsections from "./blogPagetextsections-schema";
 import storePageTextsectionsSchema from "./storePageTextsections-schema";
 import authorSchema from "./author-schema";
 import galleryCategories from "./galleryCategories-schema";
+import buttonImagesSchema from "./buttonImages-schema";
 
 
 const schemas = [
@@ -39,6 +40,7 @@ const schemas = [
     storePageTextsectionsSchema,
     authorSchema,
     galleryCategories,
+    buttonImagesSchema,
 ];
 
 export default schemas;

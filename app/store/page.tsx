@@ -10,7 +10,11 @@ interface StoreData {
     position: number;
     }[];
 
-
+interface buttonData {
+    sectionTitle: string;
+    buttonImage: string;
+    alt: string;
+    }
 
 const Store = async () => {
     const heroData = await sanityFetch<HeroData[]>({ 
@@ -24,6 +28,17 @@ const Store = async () => {
     const storeData = await sanityFetch<StoreData[]>({
         query: getStorePageTextSections,
     });
+
+    const buttonData = await sanityFetch<buttonData[]>({
+        query: groq`*[_type == "buttonImages"]{             
+            sectionTitle,
+            "buttonImage": buttonImage.asset->url,
+              "alt": buttonImage.alt,
+          }`
+      });
+    
+      const keramikBg = buttonData[0].buttonImage;
+      const textilBg = buttonData[1].buttonImage;
     
 
     return (
@@ -46,19 +61,23 @@ const Store = async () => {
              </section>
 
             <section className="section-contain flex flex-col my-8 md:my-16">
-                <div className="flex items-center justify-center">
-                    <h2 className="text-4xl underline underline-offset-4 pt-2 pb-6">Kategorier</h2>
-                </div>
+                
                 <div className="w-full flex flex-col md:flex-row gap-6 items-center justify-center">
                     
                     <Link className="flex-1 w-2/3 " href="/store/keramik">
-                        <div className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 bg-keramik bg-cover bg-center bg-no-repeat h-48 w-full" >
+                        <div 
+                            className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1  bg-cover bg-center bg-no-repeat h-48 w-full"
+                            style={{ backgroundImage: `url(${keramikBg})` }}
+                        >
                             <p className="text-annika-orange text-2xl">Keramik</p>
                         </div>
                     </Link>
 
                     <Link className="flex-1 w-2/3" href="/store/textil">
-                    <div className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 bg-textil bg-cover bg-center bg-no-repeat h-48 w-full" >
+                    <div 
+                        className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 bg-cover bg-center bg-no-repeat h-48 w-full"
+                        style={{ backgroundImage: `url(${textilBg})` }}
+                    >
                             <p className="text-annika-orange text-2xl">Textil</p>
                         </div>
                     </Link>
