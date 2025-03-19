@@ -63,13 +63,15 @@ export default async function Home() {
   
   return (
     <>
-      <main>
+      <main className="relative">
+      <div className="fixed inset-0 -z-10"></div>
         
         <Hero hero={heroData[0]} isLanding={true} />
        
 
 {sortedLandingPageData.map((section, index) => (
   <section key={index} className="section-contain w-full h-auto my-16 md:my-32">
+    <div className="w-[90%] md:w-3/4 bg-white bg-opacity-50 border border-gray-300 shadow-lg p-8 rounded-lg">
     {section.image ? (
       <div className="flex flex-col md:flex-row w-full h-auto">
         <div className="flex-1 flex items-start justify-center p-6 md:p-16">
@@ -124,6 +126,7 @@ export default async function Home() {
         </>
       )
     )}
+    </div>
   </section>
 ))}
 
