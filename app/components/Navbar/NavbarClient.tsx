@@ -28,19 +28,19 @@ const Navbar: React.FC<NavbarProps> = ({ logo, withBg = false, variant = 'light'
     return isNavDown && scrollPos > window.innerHeight / 3;
   };
 
-  const toggle = (show: boolean) => {
+  const toggle = React.useCallback((show: boolean) => {
     setShowMenu(show);
     setTimeout(() => setShowBackdrop(show), !show ? 300 : 0);
-  };
+  }, []);
 
-  const handleKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = React.useCallback((ev: React.KeyboardEvent<HTMLDivElement>) => {
     if (ev.key === 'Escape' && showMenu) {
       ev.preventDefault();
       toggle(false);
     }
-  };
+  }, [showMenu, toggle]);
 
-  const handleScroll = () => {
+  const handleScroll = React.useCallback(() => {
     const { scrollY } = window;
     const isScrollingDown = scrollY > scrollPos;
     const isScrollingUp = scrollY < scrollPos;
@@ -57,7 +57,7 @@ const Navbar: React.FC<NavbarProps> = ({ logo, withBg = false, variant = 'light'
     }
 
     setScrollPos(scrollY);
-  };
+  }, [scrollPos, isNavDown, showMenu, toggle]);
 
   useEffect(() => {
     if (isBrowser()) {
@@ -68,7 +68,7 @@ const Navbar: React.FC<NavbarProps> = ({ logo, withBg = false, variant = 'light'
         window.removeEventListener('keydown', handleKeyDown as any);
       };
     }
-  }, [scrollPos, showMenu, isNavDown]);
+  }, [scrollPos, showMenu, isNavDown, handleKeyDown, handleScroll]);
 
   const handleToggle = () => {
     setShowMenu(!showMenu);
@@ -86,7 +86,7 @@ const Navbar: React.FC<NavbarProps> = ({ logo, withBg = false, variant = 'light'
         >
           <Link href={'/'}>
             <Image 
-              src={logo.logo}
+              src={logo.logo ?? null}
               alt={logo.alt || 'Mormor&jag Logo'}
               width={200 / 1.1}
               height={36 / 1.1}

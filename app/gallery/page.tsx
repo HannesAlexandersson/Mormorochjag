@@ -36,55 +36,53 @@ const Galleriet = async () => {
 
     return(
 <>
-<main>
-    <Hero hero={heroData[0]} isLanding={false} />
+    <main>
+        <Hero hero={heroData[0]} isLanding={false} />
+        <div className="section-contain ">
 
-    <section className="section-contain flex flex-col w-full h-auto my-16 md:my-32">
-        
-            <div  className="w-full md:w-1/2 flex gap-1 flex-col items-start justify-start py-6">
-                <h2 className="text-3xl underline underline-offset-4 py-2">{firstItem.title}</h2>            
-                <p className="text-2xl py-1" >{firstItem.text}</p>
-            </div>
-        
-    </section>
-
-    <section className="section-contain flex flex-col w-full h-auto my-16 md:my-32">
-        
-        <div className="flex flex-col md:flex-row items-center justify-center gap-6 pt-6">
-            {galleryCategories.map((category) => (
-                <Link key={category.id} className="flex-1 w-2/3" href={`/gallery/${category.slug}`}>
-                    <div className="w-full">
-                        <div 
-                            className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 ${} bg-cover bg-center bg-no-repeat h-48" 
-                            style={{ backgroundImage: `url('${category.bgImage}')` }}
-                        >
-                        <h3 className="text-annika-orange text-3xl uppercase break-words pt-1 ">{category.categoryName}</h3>
+            <section className="flex flex-col w-full h-auto my-16 md:my-32">
+                
+                    <div  className="w-full md:w-1/2 flex gap-1 flex-col items-start justify-start py-6">
+                        <h2 className="text-3xl underline underline-offset-4 py-2 font-extrabold">{firstItem.title}</h2>            
+                        <p className="text-2xl py-1" >{firstItem.text}</p>
                     </div>
-                        <div className="w-full">
-                            <p className="text-annika-orange break-words text-2xl font-light py-1">{category.categoryDescription}</p>
-                        </div>
-                    </div>
-                </Link>
-            ))}
-                    
-        </div>
-    </section>
-
-
-    {remainingItems.length > 0 && (
-        <section className="section-contain flex flex-col w-full h-auto my-16 md:my-32">
-            {remainingItems.map((section, index) => (
-                <div key={section.position} className="w-full md:w-1/2 flex gap-1 flex-col items-start justify-start py-6">
-                    <h2 className="text-3xl underline underline-offset-4 py-2">{section.title}</h2>            
-                    <p className="text-2xl py-1" >{section.text}</p>
+                
+            </section>
+<div className="w-full bg-white bg-opacity-30 border border-gray-300 shadow-lg mb-8">
+            <section className="section-contain flex flex-col w-full h-auto  my-16 md:my-32">
+                
+                <div className="flex flex-col md:flex-row items-center justify-center gap-6 pt-6">
+                    {galleryCategories.map((category) => (
+                        <Link key={category.id} className="flex-1 w-2/3" href={`/gallery/${category.slug}`}>
+                            <div className="w-full">
+                                <div className="rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 bg-annika-pink h-48 p-1">                                
+                                <h3 className="text-annika-orange text-3xl uppercase break-words ">{category.categoryName}</h3>
+                                </div>
+                                <div className="w-full">
+                                    <p className="text-annika-orange break-words text-2xl font-light ">{category.categoryDescription}</p>
+                                </div>
+                            </div>
+                        </Link>
+                    ))}
+                            
                 </div>
-            ))}
-        </section>
-    )}
+            </section>
+        </div>
+
+            {remainingItems.length > 0 && (
+                <section className="section-contain flex flex-col w-full h-auto my-16 md:my-32">
+                    {remainingItems.map((section, index) => (
+                        <div key={section.position} className="w-full md:w-1/2 flex gap-1 flex-col items-start justify-start py-6">
+                            <h2 className="text-3xl underline underline-offset-4 py-2">{section.title}</h2>            
+                            <p className="text-2xl py-1" >{section.text}</p>
+                        </div>
+                    ))}
+                </section>
+            )}
     
+        </div>
 
-
-</main>
+    </main>
 </>
     );
 }
