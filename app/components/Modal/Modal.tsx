@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface ModalProps {
   isOpen: boolean;
@@ -18,7 +19,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, imageSrc, onClose }) => {
         >
           &times;
         </button>
-        <img src={imageSrc} alt="Keramik Item" className="max-w-full max-h-full" />
+        <Image src={imageSrc} alt="Keramik Item" className="max-w-full max-h-full" />
       </div>
     </div>
   );

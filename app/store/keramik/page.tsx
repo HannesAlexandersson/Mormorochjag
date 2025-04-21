@@ -16,10 +16,16 @@ const Keramik = async () => {
     const heroData = await sanityFetch<HeroData[]>({ 
         query: groq`*[_type == "heroSection" && _id == "2d7f48a7-c5d4-4b5d-84b0-71f39b86167f"]{             
             title,
-            "DesktopImg": backgroundImage.asset->url,
-              "alt": backgroundImage.alt,
-          }`
-     });
+            backgroundImage {
+      ...,
+      asset-> {
+        _id,
+        _ref,
+        url
+      }
+    }
+  }`
+});
 
     const keramikCatData = await sanityFetch<KeramikCatData[]>({
         query: getKeramikCategory,

@@ -20,10 +20,16 @@ const Store = async () => {
     const heroData = await sanityFetch<HeroData[]>({ 
         query: groq`*[_type == "heroSection" && _id == "3b46a36d-3bf4-469a-9e01-82a5b7bc6bfa"]{             
             title,
-            "DesktopImg": backgroundImage.asset->url,
-              "alt": backgroundImage.alt,
-          }`
-     });
+            backgroundImage {
+            ...,
+            asset-> {
+                _id,
+                _ref,
+                url
+            }
+            }
+        }`
+        });
 
     const storeData = await sanityFetch<StoreData[]>({
         query: getStorePageTextSections,

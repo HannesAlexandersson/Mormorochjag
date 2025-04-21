@@ -17,10 +17,16 @@ const Galleriet = async () => {
     const heroData = await sanityFetch<HeroData[]>({ 
         query: groq`*[_type == "heroSection" && _id == "2519f822-d060-4786-ac47-361fded5f4e3"]{             
             title,
-            "DesktopImg": backgroundImage.asset->url,
-              "alt": backgroundImage.alt,
-          }`
-     });
+             backgroundImage {
+      ...,
+      asset-> {
+        _id,
+        _ref,
+        url
+      }
+    }
+  }`
+});
 
     const galleryText = await sanityFetch<{title: string, text: string, position: number }[]>({
         query: getGalleryTextSections,

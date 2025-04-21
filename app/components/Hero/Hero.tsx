@@ -3,12 +3,28 @@ import Image from 'next/image';
 import Button from '../Button/Button';
 import Link from 'next/link';
 import Skeleton from '../Skeleton/Skeleton';
+import urlFor from '@/lib/urlBuilder';
 
-export interface HeroData {
+
+/* export interface HeroData {
     title: string;
     DesktopImg: string;
     alt: string;    
-  }
+  } */
+    export interface HeroData {
+      title: string;
+      backgroundImage: {
+        _type: string;
+        alt?: string;
+        crop?: any;
+        hotspot?: any;
+        asset: {
+          _ref: string;
+          _id?: string;
+          url?: string;
+        };
+      };
+    }
   
   export interface HeroProps {
     hero: HeroData;
@@ -21,8 +37,8 @@ const Hero: React.FC<HeroProps> = ({ hero, isLanding }) => {
       <section className='relative h-screen bg-black/30 object-cover'>
         <Image
           className='absolute -z-10'
-          src={hero.DesktopImg}
-          alt={hero.alt || 'Hero image'}          
+          src={urlFor(hero.backgroundImage).url()}
+          alt={hero.backgroundImage.alt || 'Hero image'}          
           quality={100}
           fill={true}
           sizes="100vw"
