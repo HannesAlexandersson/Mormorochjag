@@ -46,18 +46,14 @@ let formattedSlug = slug.split('-').join(' ');
     const first = formattedSlug.charAt(0);
     formattedSlug = formattedSlug.replace(first, first.toUpperCase());
 
-    const customHero: HeroData = {
-        title: formattedSlug,
-        DesktopImg: post.image,
-        alt: formattedSlug
-    }
+    
 
 
 
     return (
         <>
             <main>
-                <Hero hero={customHero} isLanding={false} />
+              
                 <section className="section-contain w-full h-auto my-16 md:my-32">
                     <div className="flex flex-col md:flex-row w-full h-auto my-16 md:my-32">
                        <BlogPostFull post={post} />
