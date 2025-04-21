@@ -6,11 +6,6 @@ import Skeleton from '../Skeleton/Skeleton';
 import urlFor from '@/lib/urlBuilder';
 
 
-/* export interface HeroData {
-    title: string;
-    DesktopImg: string;
-    alt: string;    
-  } */
     export interface HeroData {
       title: string;
       backgroundImage: {
