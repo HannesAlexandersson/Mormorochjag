@@ -1,63 +1,66 @@
-import Hero, { HeroData } from "@/app/components/Hero/Hero";
-import { sanityFetch } from "@/sanity/client";
-import Link from "next/link";
-import { groq } from "next-sanity";
-import { getGalleryPageObjects } from "@/sanity/querys";
-import Button from "@/app/components/Button/Button";
-import { title } from "process";
+import Hero, { HeroData } from '@/app/components/Hero/Hero'
+import { sanityFetch } from '@/sanity/client'
+import Link from 'next/link'
+import { groq } from 'next-sanity'
+import { getGalleryPageObjects } from '@/sanity/querys'
+import Button from '@/app/components/Button/Button'
+import { title } from 'process'
 
 interface GalleryObjectData {
-    title: string;
-    description: string;
-    image: string;   
-    _id?: string;
-  }
+  title: string
+  description: string
+  image: string
+  _id?: string
+}
 
 interface Params {
-    slug: string;
-  }
+  slug: string
+}
 
 interface PageProps {
-    params: Params;
-  }
+  params: Params
+}
 interface categoryIdData {
-    _id: string;
-    bgImage: string;
+  _id: string
+  bgImage: string
 }
 
 interface CategoryData {
-  categoryName: string;
-  categoryDescription: string;
-  bgImage: string;
-  id: string;
-  slug: string;
+  categoryName: string
+  categoryDescription: string
+  bgImage: string
+  id: string
+  slug: string
 }
 
-const GalleryPage: React.FC<PageProps> = async ({ params }: { params: Params }) => {
-    let object = params.slug.split('-').join(' ')
-    const first = object.charAt(0)
-    object = object.replace(first, first.toUpperCase())
+const GalleryPage: React.FC<PageProps> = async ({
+  params,
+}: {
+  params: Params
+}) => {
+  let object = params.slug.split('-').join(' ')
+  const first = object.charAt(0)
+  object = object.replace(first, first.toUpperCase())
 
-    const slug = params.slug;
-    const categoryData = await sanityFetch<categoryIdData>({
-        query: groq`*[_type == "galleryCategories" && slug.current == $slug][0]{
+  const slug = params.slug
+  const categoryData = await sanityFetch<categoryIdData>({
+    query: groq`*[_type == "galleryCategories" && slug.current == $slug][0]{
                 _id,
                 "bgImage": categoryImage.asset->url,
                 }
                 `,
-        params: { slug }
-    })
-    
-    const categoryId = categoryData._id;
-    
+    params: { slug },
+  })
 
-    const galeryObjects = await sanityFetch<GalleryObjectData[]>({
-        query: getGalleryPageObjects,
-        params: { categoryId }
-      });
+  const categoryId = categoryData._id
 
-      const heroData = await sanityFetch<HeroData[]>({ 
-        query: groq`*[_type == "heroSection" && _id == "2519f822-d060-4786-ac47-361fded5f4e3"]{             
+  const galeryObjects = await sanityFetch<GalleryObjectData[]>({
+    query: getGalleryPageObjects,
+    params: { categoryId },
+  })
+
+  const heroData = await sanityFetch<HeroData[]>({
+    query: groq`*[_type == "heroSection" && _id == "2519f822-d060-4786-ac47-361fded5f4e3"]{             
             title,
             backgroundImage {
       ...,
@@ -67,10 +70,10 @@ const GalleryPage: React.FC<PageProps> = async ({ params }: { params: Params }) 
         url
       }
     }
-  }`
-});
+  }`,
+  })
 
- const getGalleryCat = groq`
+  const getGalleryCat = groq`
   *[_type == "galleryCategories"]{
     categoryName,
     categoryDescription,
@@ -78,64 +81,75 @@ const GalleryPage: React.FC<PageProps> = async ({ params }: { params: Params }) 
     "id": _id,
     "slug": slug.current,
   }
-`;
+`
 
-const galleryCategories = await sanityFetch<CategoryData[]>({
-    query: getGalleryCat,  // Use the same query here
-  });
+  const galleryCategories = await sanityFetch<CategoryData[]>({
+    query: getGalleryCat, // Use the same query here
+  })
 
-     
-    return(
-        <main>
-            <Hero hero={heroData[0]} isLanding={false} />
-            <section className="section-contain flex flex-col w-full h-auto my-16 md:my-32">
-                <div  className="w-full md:w-1/2 flex gap-1 flex-col items-start justify-start py-6">
-                    <h2 className="text-3xl underline underline-offset-4 py-2">{object}</h2>            
-                </div>
-                 <section className="category-nav-section">
-          <div className="category-nav flex flex-row flex-wrap gap-3 md:gap-6 items-center justify-center py-6 md:py-12">
-            {galleryCategories.map((section) => {
-              const backgroundImage = section.bgImage; // Direct access since we are already getting the URL
+  return (
+    <main>
+      <Hero hero={heroData[0]} isLanding={false} />
+      <section className='section-contain my-16 flex h-auto w-full flex-col md:my-32'>
+        <div className='flex w-full flex-col items-start justify-start gap-1 py-6 md:w-1/2'>
+          <h2 className='py-2 text-3xl underline underline-offset-4'>
+            {object}
+          </h2>
+        </div>
+        <section className='category-nav-section'>
+          <div className='category-nav flex flex-row flex-wrap items-center justify-center gap-3 py-6 md:gap-6 md:py-12'>
+            {galleryCategories.map(section => {
+              const backgroundImage = section.bgImage // Direct access since we are already getting the URL
               return (
                 <Link key={section.id} href={`/gallery/${section.slug}`}>
                   <div
-                    className={`category-item rounded-md shadow-lg shadow-gray-600 flex items-center justify-center flex-1 h-18 md:h-28 min-w-20 md:min-w-max md:w-28 bg-center bg-cover bg-no-repeat ${slug === section.slug ? 'ring-2' : ''}`}
-                    style={{ backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined }}
+                    className={`category-item h-18 flex min-w-20 flex-1 items-center justify-center rounded-md bg-cover bg-center bg-no-repeat shadow-lg shadow-gray-600 md:h-28 md:w-28 md:min-w-max ${slug === section.slug ? 'ring-2' : ''}`}
+                    style={{
+                      backgroundImage: backgroundImage
+                        ? `url(${backgroundImage})`
+                        : undefined,
+                    }}
                   >
-                    <p className="text-annika-orange text-2xl px-2 md:p-1">{section.categoryName}</p>
+                    <p className='px-2 text-2xl text-annika-orange md:p-1'>
+                      {section.categoryName}
+                    </p>
                   </div>
                 </Link>
-              );
+              )
             })}
           </div>
         </section>
-                <div className="w-full flex flex-col md:flex-row gap-6">
-                    {galeryObjects.map((object) => (
-                        <div key={object._id} className="flex flex-col md:flex-row gap-6 bg-annika-cream shadow-md shadow-slate-600 w-full md:w-2/5 ">
-                        <div 
-                            className="w-full md:w-1/2 h-96 bg-center bg-cover bg-no-repeat" 
-                            style={{ backgroundImage: `url('${object.image}')` }}
-                        ></div>
-                        <div className="w-full md:w-1/2 flex flex-col items-start justify-start p-3">
-                            <h3 className="text-4xl underline underline-offset-4 py-2">{object.title}</h3>
-                            <p className="text-2xl">{object.description}</p>                                           
-                        </div>
-                    </div>
-                          
-                    ))}
-                    </div>      
-            </section>
-            <section className="section-contain flex flex-col my-8 md:my-16">
-            <div className='w-full flex justify-center items-center'>
-                <Link href='/gallery'>
-                    <Button  variant="primary"  className='w-full sm:w-fit' >
-                        Tillbaka
-                    </Button>
-                </Link>
+        <div className='flex w-full flex-col flex-wrap justify-center gap-6 md:flex-row'>
+          {galeryObjects.map(object => (
+            <div
+              key={object._id}
+              className='flex flex-col gap-6 bg-annika-cream shadow-md shadow-slate-600 md:w-2/5 md:flex-row'
+            >
+              <div
+                className='h-96 w-full bg-cover bg-center bg-no-repeat md:w-1/2'
+                style={{ backgroundImage: `url('${object.image}')` }}
+              ></div>
+              <div className='flex w-full flex-col items-start justify-start p-3 md:w-1/2'>
+                <h3 className='py-2 text-4xl underline underline-offset-4'>
+                  {object.title}
+                </h3>
+                <p className='text-2xl'>{object.description}</p>
+              </div>
             </div>
-        </section>
-        </main>
-    );
+          ))}
+        </div>
+      </section>
+      <section className='section-contain my-8 flex flex-col md:my-16'>
+        <div className='flex w-full items-center justify-center'>
+          <Link href='/gallery'>
+            <Button variant='primary' className='w-full sm:w-fit'>
+              Tillbaka
+            </Button>
+          </Link>
+        </div>
+      </section>
+    </main>
+  )
 }
 
-export default GalleryPage;
+export default GalleryPage
