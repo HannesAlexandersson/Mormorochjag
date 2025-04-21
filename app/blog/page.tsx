@@ -29,10 +29,16 @@ const BlogPage = async () => {
     const heroData = await sanityFetch<HeroData[]>({ 
         query: groq`*[_type == "heroSection" && _id == "b02bdffd-84b9-4126-9068-2cbc14fec2eb"]{             
             title,
-            "DesktopImg": backgroundImage.asset->url,
-              "alt": backgroundImage.alt,
-          }`
-     });
+            backgroundImage {
+      ...,
+      asset-> {
+        _id,
+        _ref,
+        url
+      }
+    }
+  }`
+});
 
     const blogPageTextSections = await sanityFetch<BlogPagetextData[]>({
         query: getBlogPageTextSections
