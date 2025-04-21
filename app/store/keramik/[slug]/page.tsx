@@ -12,8 +12,17 @@ import Hero from '@/app/components/Hero/Hero'
 
 interface HeroData {
     title: string;
-    DesktopImg: string;
-    alt: string;    
+    backgroundImage: {
+      _type: string;
+      crop?: any;
+      hotspot?: any;
+      alt?: string;
+      asset: {
+        _ref: string;
+        _id?: string;
+        url?: string;
+      };
+    };
   }
   
  interface HeroProps {
@@ -28,8 +37,18 @@ interface Params {
   interface categoryIdData {
     title: string;
     id: string;
-    image: string;
-}
+    image: {
+      _type: string;
+      crop?: any;
+      hotspot?: any;
+      alt?: string;
+      asset: {
+        _ref: string;
+        _id?: string;
+        url?: string;
+      };
+    };
+  }
 
 interface KeramikObjectData {
     title: string;
@@ -75,13 +94,19 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
     const slug = params.slug;
     const categoryData = await sanityFetch<categoryIdData>({
         query: groq`*[_type == "kermaikCategory" && slug.current == $slug][0] {
-                    title,
-                    "id": _id,
-                    "image": image.asset->url
-                    }
-                `,
+          title,
+          "id": _id,
+          image {
+            ...,
+            asset-> {
+              _id,
+              _ref,
+              url
+            }
+          }
+        }`,
         params: { slug }
-    })
+      });
     
     const categoryId = categoryData.id;
 
@@ -97,16 +122,6 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
                 } | order(position asc, title asc)`,
         params: { categoryId }
       });
-    /* order by name:
-*[_type == "keramik" && category._ref == $categoryId]{
-                    title,
-                    description,
-                    "image": image.asset->url,
-                    price,
-                    "slug": slug.current,
-                    _id,
-                } | order(title desc)
-    */
       
     if (!keramikObjects){
         alert('Inga objekt hittades, du kommer att skickas tillbaka till keramik sidan');
@@ -119,10 +134,9 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
 
     const customHero = {
         title: categoryData.title,
-        DesktopImg: categoryData.image,
+        backgroundImage: categoryData.image,
         alt: formattedSlug
-    }
-
+      }
     return(
         <>
         <main>
@@ -145,17 +159,12 @@ export const generateMetadata = async ({ params }: { params: Params }) => {
                                 
                             </Link>
                         ))}
-                </div>
+                    </div>
                 )}
                 
 
 
-               {/*  <div className="w-full flex flex-wrap gap-6 justify-evenly">
-                    {keramikObjects.map((object) => (
-                        <ObjectCard key={object.title} object={object} />
-                      
-                    ))}
-                </div> */}
+              
                 <ObjectCardList objects={keramikObjects} />
             </section>
 

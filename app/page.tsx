@@ -2,7 +2,7 @@ import Image from "next/image";
 import { sanityFetch } from "@/sanity/client";
 import { PortableText } from '@portabletext/react';
 import { groq } from "next-sanity";
-import { getHero, getLandingPage, getTrippleImage } from "@/sanity/querys";
+import { getLandingPage } from "@/sanity/querys";
 import Hero, { HeroData } from "@/app/components/Hero/Hero";
 import components from "./components/CustomPort/CustomPort";
 
@@ -29,28 +29,26 @@ interface LandingPageProps {
   sections: LandingPageSection[];
 }
 
-
-
-
-
 export interface HeroProps {
   hero: HeroData;
   isLanding?: boolean;  
 }
-//0102a4a9-990e-48c3-a3ff-9858babe5f23
 
 export default async function Home() { 
 
   const heroData = await sanityFetch<HeroData[]>({ 
     query: groq`*[_type == "heroSection" && _id == "0102a4a9-990e-48c3-a3ff-9858babe5f23"]{             
         title,
-        "DesktopImg": backgroundImage.asset->url,
-          "alt": backgroundImage.alt,
-      }`
- });    
-
-  
-  
+         backgroundImage {
+      ...,
+      asset-> {
+        _id,
+        _ref,
+        url
+      }
+    }
+  }`
+});
 
   const landingPageData = await sanityFetch<LandingPageProps>({
     query: getLandingPage
@@ -63,13 +61,15 @@ export default async function Home() {
   
   return (
     <>
-      <main>
+      <main className="relative">
+      <div className="fixed inset-0 -z-10"></div>
         
         <Hero hero={heroData[0]} isLanding={true} />
        
 
 {sortedLandingPageData.map((section, index) => (
   <section key={index} className="section-contain w-full h-auto my-16 md:my-32">
+    <div className="w-[90%] md:w-3/4 bg-white bg-opacity-50 border border-gray-300 shadow-lg p-8 rounded-lg">
     {section.image ? (
       <div className="flex flex-col md:flex-row w-full h-auto">
         <div className="flex-1 flex items-start justify-center p-6 md:p-16">
@@ -124,6 +124,7 @@ export default async function Home() {
         </>
       )
     )}
+    </div>
   </section>
 ))}
 

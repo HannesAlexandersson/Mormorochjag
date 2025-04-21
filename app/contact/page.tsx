@@ -36,10 +36,16 @@ const Contact = async () => {
     const heroData = await sanityFetch<HeroData[]>({ 
         query: groq`*[_type == "heroSection" && _id == "e5a62374-841f-4876-ac6a-1e675bd703c0"]{             
             title,
-            "DesktopImg": backgroundImage.asset->url,
-              "alt": backgroundImage.alt,
-          }`
-     });    
+            backgroundImage {
+      ...,
+      asset-> {
+        _id,
+        _ref,
+        url
+      }
+    }
+  }`
+});
 
     const socialData = await sanityFetch<DocumentWithSocialMedia[]>({
         query: socials,

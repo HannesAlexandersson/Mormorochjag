@@ -18,10 +18,16 @@ const Textil = async () => {
     const heroData = await sanityFetch<HeroData[]>({ 
         query: groq`*[_type == "heroSection" && _id == "103c5e21-f1bf-4e38-9439-ebb6b4e82524"]{             
             title,
-            "DesktopImg": backgroundImage.asset->url,
-              "alt": backgroundImage.alt,
-          }`
-     });
+             backgroundImage {
+      ...,
+      asset-> {
+        _id,
+        _ref,
+        url
+      }
+    }
+  }`
+});
 
     const textilCatData = await sanityFetch<TextilCatData[]>({
         query: getTextilCategory,
