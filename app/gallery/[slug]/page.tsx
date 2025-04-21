@@ -120,9 +120,9 @@ const GalleryPage: React.FC<PageProps> = async ({
           </div>
         </section>
         <div className='flex w-full flex-col flex-wrap justify-center gap-6 md:flex-row'>
-          {galeryObjects.map(object => (
+          {galeryObjects.map((object, idx) => (
             <div
-              key={object._id}
+              key={idx}
               className='flex flex-col gap-6 bg-annika-cream shadow-md shadow-slate-600 md:w-2/5 md:flex-row'
             >
               <div
